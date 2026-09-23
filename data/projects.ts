@@ -84,6 +84,48 @@ export const projects: Project[] = [
     repo: "https://github.com/fieldlogic-lab/Point-O-Woods"
   },
   {
+    slug: "party-chief",
+    name: "Party Chief",
+    description: "Mobile draft-beer serving product for distributors and keg retailers.",
+    status: "Active",
+    stage: "Build",
+    lastUpdate: "2026-09-14",
+    currentStatus: "A functional-looking prototype and business foundation exist. The remaining proof work is CO2 mounting, plumbing, cooling/enclosure completion, live-keg testing, cleanup, and distributor validation.",
+    nextStep: "Create the dedicated Party Chief repository from the existing prep package, finish the prototype-to-proof build, run a live-keg test, and capture distributor feedback.",
+    supportingLinks: [
+      { label: "GitHub project entry", url: "https://github.com/fieldlogic-lab/SolutionsHQ/issues/2" },
+      { label: "Project scope", url: "https://github.com/fieldlogic-lab/SolutionsHQ/blob/main/docs/scopes/PARTY_CHIEF_SCOPE.md" }
+    ]
+  },
+  {
+    slug: "hydrographic-usv",
+    name: "Hydrographic USV",
+    description: "Compact autonomous survey vessel for shallow-water hydrographic work.",
+    status: "Active",
+    stage: "Explore",
+    lastUpdate: "2026-09-12",
+    currentStatus: "The concept architecture exists around dual GNSS, ArduPilot, 12V LiFePO4 power, printable components, and trolling-motor or brushless propulsion. It now has enough independent engineering scope to graduate from Innovation Lab.",
+    nextStep: "Create the dedicated repository, select the propulsion/control architecture, and define the first prototype mission envelope, payload, endurance, and controlled-water validation plan.",
+    supportingLinks: [
+      { label: "GitHub project entry", url: "https://github.com/fieldlogic-lab/SolutionsHQ/issues/3" },
+      { label: "Project scope", url: "https://github.com/fieldlogic-lab/SolutionsHQ/blob/main/docs/scopes/HYDROGRAPHIC_USV_SCOPE.md" }
+    ]
+  },
+  {
+    slug: "coxswain-navigation",
+    name: "Coxswain Navigation System",
+    description: "On-water rowing navigation and workout execution system for coxswains.",
+    status: "Active",
+    stage: "Explore",
+    lastUpdate: "2026-09-14",
+    currentStatus: "The concept is defined around a phone-mounted GPS interface, mapped buoys and lanes, split workout/map view, distance and split tracking, battery awareness, and no-touch operation during practice.",
+    nextStep: "Create the dedicated repository, define v0.1 field requirements, and build a simple map/workout prototype plus the first phone-holder field test.",
+    supportingLinks: [
+      { label: "GitHub project entry", url: "https://github.com/fieldlogic-lab/SolutionsHQ/issues/4" },
+      { label: "Project scope", url: "https://github.com/fieldlogic-lab/SolutionsHQ/blob/main/docs/scopes/COXSWAIN_NAVIGATION_SCOPE.md" }
+    ]
+  },
+  {
     slug: "solutions-hq",
     name: "Solutions HQ",
     description: "Portfolio, re-entry, and innovation command center for Massi Solutions.",
@@ -91,7 +133,7 @@ export const projects: Project[] = [
     stage: "Build",
     lastUpdate: "2026-09-23",
     currentStatus: "v0.1 is deployed and healthy on Vercel. Project pages, Innovation Lab, production build validation, and the first re-entry workflow are in place.",
-    nextStep: "Finish the project-resume experience and replace manually maintained repository activity with GitHub-backed status and checkpoints.",
+    nextStep: "Finish GitHub-backed project telemetry and continue replacing manual portfolio activity with durable source-of-truth integrations.",
     repo: "https://github.com/fieldlogic-lab/SolutionsHQ",
     app: "https://solutions-hq.vercel.app/"
   }
