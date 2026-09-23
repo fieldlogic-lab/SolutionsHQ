@@ -34,3 +34,13 @@ The v1 behavior:
 - use a registered project-specific ChatGPT URL when a stable one is available.
 
 **Reason:** Solutions HQ should direct the user back into productive work, not merely describe project status. The implementation must avoid inventing or depending on an unverified ChatGPT Project deep-link format.
+
+
+## 2026-09-23 — Party Chief is a standalone project
+**Decision:** Party Chief is a full standalone Massi Solutions project and must receive its own authoritative repository.
+
+**Reason:** The product has already progressed through concept development, product architecture, prototype planning, customer/channel definition, commercialization strategy, and a concrete prototype-to-proof validation path. The planned 3D printer is an execution accelerator, not the threshold that makes Party Chief a project.
+
+**Repository target:** `fieldlogic-lab/Party-Chief`
+
+Until repository creation is available, the authoritative bootstrap package is stored at `incubator/party-chief/` in Solutions HQ.
