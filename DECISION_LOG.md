@@ -13,11 +13,24 @@
 
 **Reason:** The portfolio is currently founder-operated and does not need granular workflow administration.
 
-## 2026-09-23 — Progress is optional
-**Decision:** Percent complete may be shown where a project is scoped enough for it to be meaningful; it is not required for ideation.
+## 2026-09-23 — Do not force percent-complete tracking
+**Decision:** Solutions HQ will emphasize status, current state, and next work. Percent complete is not required for project cards.
+
+**Reason:** Early and iterative work does not benefit from false precision.
 
 ## 2026-09-23 — Preserve project authority
 **Decision:** HQ is an index and command interface. GitHub and each project's source-of-truth documents remain authoritative.
 
 ## 2026-09-23 — Build around re-entry
 **Decision:** Every project page must prioritize current state, next step, and direct access to its working systems.
+
+## 2026-09-23 — Resume in ChatGPT
+**Decision:** Project pages include a **Resume in ChatGPT** action.
+
+The v1 behavior:
+- assemble a re-entry brief from the project's current status, next step, and registered working links;
+- copy that brief to the clipboard;
+- open ChatGPT;
+- use a registered project-specific ChatGPT URL when a stable one is available.
+
+**Reason:** Solutions HQ should direct the user back into productive work, not merely describe project status. The implementation must avoid inventing or depending on an unverified ChatGPT Project deep-link format.
