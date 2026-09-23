@@ -126,6 +126,76 @@ export const projects: Project[] = [
     ]
   },
   {
+    slug: "ideawriter",
+    name: "IdeaWriter",
+    description: "Local-first idea capture, transcription, tagging, synthesis, and knowledge-development system.",
+    status: "Active",
+    stage: "Build",
+    lastUpdate: "2026-09-20",
+    currentStatus: "A local Python implementation already exists with faster-whisper transcription, SQLite storage, portable inbox/transcripts/summaries/archive, and controlled category/topic/action tagging. Later work defined spatial synthesis and mobile capture directions.",
+    nextStep: "Create the authoritative IdeaWriter repository from the existing local implementation, preserve its portable data model, and separate v1 capture/synthesis from later spatial and Android work.",
+    supportingLinks: [
+      { label: "GitHub project entry", url: "https://github.com/fieldlogic-lab/SolutionsHQ/issues/5" },
+      { label: "Project scope", url: "https://github.com/fieldlogic-lab/SolutionsHQ/blob/main/docs/scopes/IDEAWRITER_SCOPE.md" }
+    ]
+  },
+  {
+    slug: "massi-tv",
+    name: "Massi TV",
+    description: "Household television and local-family broadcast interface.",
+    status: "Active",
+    stage: "Build",
+    lastUpdate: "2026-09-23",
+    currentStatus: "Massi TV is now treated as a distinct product from HELM. The design includes weather, boating, fishing, surf, local information, passive rotation, ticker behavior, remote navigation, story opening, and family photo/art presentation.",
+    nextStep: "Create the dedicated repository, define the HELM/feed-provider contract, and preserve the existing TV-first UI work as the first reference implementation.",
+    supportingLinks: [
+      { label: "GitHub project entry", url: "https://github.com/fieldlogic-lab/SolutionsHQ/issues/6" },
+      { label: "Project scope", url: "https://github.com/fieldlogic-lab/SolutionsHQ/blob/main/docs/scopes/MASSI_TV_SCOPE.md" }
+    ]
+  },
+  {
+    slug: "virtual-rumble-strip",
+    name: "Virtual Rumble Strip",
+    description: "Portable roadside warning system that creates rumble-strip-like in-cabin tactile alerts.",
+    status: "Active",
+    stage: "Explore",
+    lastUpdate: "2026-09-14",
+    currentStatus: "The system architecture and development path are defined: radar or manual trigger, controller, low-frequency amplifier/transducer, risk-based pulse cadence, and a later networked work-zone product family.",
+    nextStep: "Build the V0 manual prototype and validate 75–150 ft in-cabin perception plus worker/external exposure before adding radar triggering.",
+    supportingLinks: [
+      { label: "GitHub project entry", url: "https://github.com/fieldlogic-lab/SolutionsHQ/issues/7" },
+      { label: "Project scope", url: "https://github.com/fieldlogic-lab/SolutionsHQ/blob/main/docs/scopes/VIRTUAL_RUMBLE_STRIP_SCOPE.md" }
+    ]
+  },
+  {
+    slug: "lidar-bluff-profile",
+    name: "LiDAR Bluff Profile Pipeline",
+    description: "Two-day LiDAR-to-cross-section existing-conditions reporting workflow for bluff and dune access work.",
+    status: "Active",
+    stage: "Build",
+    lastUpdate: "2026-01-03",
+    currentStatus: "A working R pipeline has processed LAS/LAZ/DTM inputs, authoritative GeoJSON section geometry and picks, cached profile data, plan/profile graphics, and two-page PDFs on real test sites. Remaining work is consolidation and production hardening.",
+    nextStep: "Create the dedicated repository, standardize DTM as the authoritative elevation source, preserve the two-page report format, and package the workflow for repeatable MLS production use.",
+    supportingLinks: [
+      { label: "GitHub project entry", url: "https://github.com/fieldlogic-lab/SolutionsHQ/issues/8" },
+      { label: "Project scope", url: "https://github.com/fieldlogic-lab/SolutionsHQ/blob/main/docs/scopes/LIDAR_BLUFF_PROFILE_SCOPE.md" }
+    ]
+  },
+  {
+    slug: "autodock",
+    name: "AutoDock",
+    description: "Self-centering berth and automatic boat-capture system for single-handed docking.",
+    status: "Active",
+    stage: "Explore",
+    lastUpdate: "2026-08-30",
+    currentStatus: "The mechanical concept is defined around passive funnel geometry, soft guides, a dedicated boat receiver, automatic latch, counterweighted centering lines, and tide accommodation. A 1:10 prototype path is already defined.",
+    nextStep: "Create the dedicated repository and build the 1:10 slip/Pursuit prototype to test deliberately poor approach angles and latch geometry.",
+    supportingLinks: [
+      { label: "GitHub project entry", url: "https://github.com/fieldlogic-lab/SolutionsHQ/issues/9" },
+      { label: "Project scope", url: "https://github.com/fieldlogic-lab/SolutionsHQ/blob/main/docs/scopes/AUTODOCK_SCOPE.md" }
+    ]
+  },
+  {
     slug: "solutions-hq",
     name: "Solutions HQ",
     description: "Portfolio, re-entry, and innovation command center for Massi Solutions.",
