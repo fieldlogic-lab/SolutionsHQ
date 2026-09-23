@@ -90,12 +90,9 @@ export const projects: Project[] = [
     status: "Active",
     stage: "Build",
     lastUpdate: "2026-09-14",
-    currentStatus: "A functional-looking prototype and business foundation exist. The remaining proof work is CO2 mounting, plumbing, cooling/enclosure completion, live-keg testing, cleanup, and distributor validation.",
-    nextStep: "Create the dedicated Party Chief repository from the existing prep package, finish the prototype-to-proof build, run a live-keg test, and capture distributor feedback.",
-    supportingLinks: [
-      { label: "GitHub project entry", url: "https://github.com/fieldlogic-lab/SolutionsHQ/issues/2" },
-      { label: "Project scope", url: "https://github.com/fieldlogic-lab/SolutionsHQ/blob/main/docs/scopes/PARTY_CHIEF_SCOPE.md" }
-    ]
+    currentStatus: "Party Chief now has its own authoritative repository with product scope, decision log, execution contract, implementation status, validation plan, commercialization plan, and organized CAD/BOM/prototype areas. Remaining work is physical prototype completion and proof.",
+    nextStep: "Migrate any existing CAD, drawings, prototype images, and commercial assets into PartyChief, then finish the physical prototype, run the live-keg test, and capture distributor feedback.",
+    repo: "https://github.com/fieldlogic-lab/PartyChief"
   },
   {
     slug: "hydrographic-usv",
