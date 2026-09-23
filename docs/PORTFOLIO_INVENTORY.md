@@ -13,7 +13,7 @@ This is the durable classification produced from the broader ChatGPT-history aud
 - **Solutions HQ** — portfolio and re-entry command center. Repo: `fieldlogic-lab/SolutionsHQ`.
 
 ## Standalone projects — deserve dedicated repositories
-- **Party Chief** (earlier Keg Kaptain / Draft Dolly direction) — commercial mobile draft-beer system. Proposed repo: `fieldlogic-lab/Party-Chief`. Issue #2.
+- **Party Chief** (earlier Keg Kaptain / Draft Dolly direction) — commercial mobile draft-beer system. Repo: `fieldlogic-lab/PartyChief`. Graduation Issue #2 closed.
 - **Hydrographic USV** — autonomous shallow-water survey vessel. Proposed repo: `fieldlogic-lab/Hydrographic-USV`. Issue #3.
 - **Coxswain Navigation System** — on-water rowing navigation/workout product. Proposed repo: `fieldlogic-lab/Coxswain-Navigation`. Issue #4.
 - **IdeaWriter** — implemented local idea-capture/transcription/synthesis application. Proposed repo: `fieldlogic-lab/IdeaWriter`. Issue #5.
