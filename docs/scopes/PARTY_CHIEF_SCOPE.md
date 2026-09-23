@@ -1,22 +1,9 @@
-# Party Chief — Project Scope
+# Party Chief — Migrated Scope
 
-## Purpose
-Create a manufacturable mobile draft-beer serving system for distributors and keg retailers.
+Party Chief graduated to its own authoritative repository on 2026-09-23.
 
-## Current state
-A functional-looking prototype and commercial foundation exist. Remaining prototype work includes CO2 mounting, plumbing, cooling/enclosure completion, live-keg testing, cleanup, and distributor validation.
+**Authoritative repository:** `fieldlogic-lab/PartyChief`
 
-## Near-term objective
-Move from prototype to proof: demonstrate a reliable live-keg system, capture distributor feedback, and establish the engineering/commercial baseline for a pilot run.
+https://github.com/fieldlogic-lab/PartyChief
 
-## In scope
-Product architecture, prototype engineering, CAD, BOM, cooling, plumbing, CO2 system, enclosure, cleaning/service procedures, manufacturing assumptions, economics, validation, distributor sales assets, pilot planning, and product decisions.
-
-## Out of scope
-Operating a rental/event-service business as the primary model.
-
-## Proposed authoritative repository
-`fieldlogic-lab/Party-Chief`
-
-## Next step
-Create the dedicated repository from the existing Party Chief prep package and migrate the product specification, decision history, prototype-to-proof plan, CAD/BOM structure, and commercialization documents.
+This file remains only as the historical Solutions HQ graduation record. Current product scope, decisions, implementation status, validation plans, commercialization work, CAD, BOM, prototype records, and future development belong in the dedicated repository.
