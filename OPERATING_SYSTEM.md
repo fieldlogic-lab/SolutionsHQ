@@ -1,7 +1,7 @@
-# Massi Solutions HQ — Operating System
+# Solutions HQ — Operating System
 
 ## Purpose
-Massi Solutions HQ is the human interface for the Massi Solutions portfolio. It is not the source of truth for every project; it is the command and re-entry layer above those sources.
+Solutions HQ is the human interface for the Massi Solutions portfolio. It is not the source of truth for every project; it is the command and re-entry layer above those sources.
 
 ## Core Principles
 1. **Accessible over elaborate.** The dashboard must answer what is active, where it stands, and how to resume it.
