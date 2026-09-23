@@ -1,0 +1,3 @@
+import Link from "next/link";
+import { ideas } from "@/data/ideas";
+export default function IdeasPage(){return <main className="detail"><Link className="small" href="/">← Dashboard</Link><h1>Innovation Lab</h1><p className="small">Capture first. Structure only when an idea earns it.</p><section className="panel" style={{marginTop:24}}>{ideas.map(idea=><div className="idea" key={idea.slug}><div className="idea-head"><strong>{idea.name}</strong><span className="badge">{idea.status}</span></div><p>{idea.description}</p><div className="small">Last update: {idea.lastUpdate}</div><div className="small">Next: {idea.nextStep}</div></div>)}</section></main>}
