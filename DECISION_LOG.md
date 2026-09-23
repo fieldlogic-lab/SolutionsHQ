@@ -41,6 +41,6 @@ The v1 behavior:
 
 **Reason:** The product has already progressed through concept development, product architecture, prototype planning, customer/channel definition, commercialization strategy, and a concrete prototype-to-proof validation path. The planned 3D printer is an execution accelerator, not the threshold that makes Party Chief a project.
 
-**Repository target:** `fieldlogic-lab/Party-Chief`
+**Repository target:** `fieldlogic-lab/PartyChief`
 
-Until repository creation is available, the authoritative bootstrap package is stored at `incubator/party-chief/` in Solutions HQ.
+Party Chief graduated to its dedicated repository on 2026-09-23. The former incubator package was migrated and replaced with a pointer.
