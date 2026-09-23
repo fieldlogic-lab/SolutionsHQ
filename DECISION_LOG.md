@@ -44,3 +44,11 @@ The v1 behavior:
 **Repository target:** `fieldlogic-lab/PartyChief`
 
 Party Chief graduated to its dedicated repository on 2026-09-23. The former incubator package was migrated and replaced with a pointer.
+
+
+## 2026-09-23 — Standardize invention records
+**Decision:** Solutions HQ maintains a portfolio-wide invention-record standard and patent-readiness register.
+
+Projects with plausible protectable technical subject matter receive version, contributor, disclosure, and evidence tracking. Party Chief and WorkZone Thumper have active invention records; AutoDock is active; Hydrographic USV is on watch until a genuinely novel architecture emerges.
+
+**Reason:** Ordinary Git history is useful but does not by itself capture inventorship contributions, public disclosures, technical version rationale, failed designs, or filing-review triggers.
