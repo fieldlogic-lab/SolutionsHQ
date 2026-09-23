@@ -44,3 +44,17 @@ Solutions HQ is the human interface for the Massi Solutions portfolio. It is not
 
 ## Deferred
 Authentication, database-backed editing, automatic GitHub synchronization, Drive integration, automated checkpoints, AI resume packets, notifications, multi-user roles, and commercialization analytics.
+
+
+## Invention / Patent-Readiness Discipline
+When a project may contain protectable technical subject matter, Solutions HQ must classify it in the patent-readiness register and apply the invention-record standard in `docs/INVENTION_RECORD_STANDARD.md`.
+
+At minimum:
+- preserve dated technical versions;
+- preserve contributors and specific contributions;
+- preserve sketches/CAD/photos/tests/BOM changes;
+- maintain a disclosure log;
+- distinguish reconstructed history from contemporaneous records;
+- flag external demonstration, offer for sale, public testing, licensing discussion, or publication as filing-review checkpoints.
+
+Git history supports the record but does not replace formal patent filing.
