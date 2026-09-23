@@ -1,6 +1,6 @@
-# Massi Solutions HQ
+# Solutions HQ
 
-Massi Solutions HQ is the portfolio and innovation command center for Massi Solutions.
+Solutions HQ is the portfolio and innovation command center for Massi Solutions.
 
 It exists to make projects accessible, show where work stands, preserve re-entry context, and provide a lightweight home for ideas before they become projects.
 
