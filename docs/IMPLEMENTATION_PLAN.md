@@ -1,4 +1,4 @@
-# Massi Solutions HQ v1 Implementation Plan
+# Solutions HQ v1 Implementation Plan
 
 ## Phase 1 — Reference Interface
 - Build responsive dashboard shell.
@@ -6,6 +6,7 @@
 - Add project detail pages.
 - Add Innovation Lab registry.
 - Seed known projects and ideas.
+- Validate production build and deployment readiness.
 
 ## Phase 2 — Durable Registry
 - Move project and idea records from static TypeScript to durable storage.
@@ -36,3 +37,4 @@
 - Layout works on desktop and mobile widths.
 - Source-of-truth documents explain the architecture and constraints.
 - Production build passes.
+- A usable deployment is available.
