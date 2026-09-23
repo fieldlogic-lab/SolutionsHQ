@@ -152,16 +152,16 @@ export const projects: Project[] = [
   },
   {
     slug: "virtual-rumble-strip",
-    name: "Virtual Rumble Strip",
-    description: "Portable roadside warning system that creates rumble-strip-like in-cabin tactile alerts.",
+    name: "WorkZone Thumper",
+    description: "Portable roadside warning system that creates rumble-strip-like in-cabin tactile alerts. Earlier names: Virtual Rumble Strip / Active Rumble Zone.",
     status: "Active",
     stage: "Explore",
     lastUpdate: "2026-09-14",
-    currentStatus: "The system architecture and development path are defined: radar or manual trigger, controller, low-frequency amplifier/transducer, risk-based pulse cadence, and a later networked work-zone product family.",
-    nextStep: "Build the V0 manual prototype and validate 75–150 ft in-cabin perception plus worker/external exposure before adding radar triggering.",
+    currentStatus: "WorkZone Thumper is the canonical name for the project previously called Virtual Rumble Strip / Active Rumble Zone. The architecture and development path are defined: manual/radar trigger, controller, low-frequency amplifier/transducer, risk-based pulse cadence, and a later networked work-zone product family. A formal invention/version record now preserves the technical history."
+    nextStep: "Create the dedicated WorkZone Thumper repository, then build the V0 manual prototype and document versioned 75–150 ft in-cabin perception and worker/external exposure testing before adding radar triggering."
     supportingLinks: [
       { label: "GitHub project entry", url: "https://github.com/fieldlogic-lab/SolutionsHQ/issues/7" },
-      { label: "Project scope", url: "https://github.com/fieldlogic-lab/SolutionsHQ/blob/main/docs/scopes/VIRTUAL_RUMBLE_STRIP_SCOPE.md" }
+      { label: "Project scope", url: "https://github.com/fieldlogic-lab/SolutionsHQ/tree/main/incubator/workzone-thumper" }
     ]
   },
   {
