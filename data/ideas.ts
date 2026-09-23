@@ -17,14 +17,6 @@ export const ideas: Idea[] = [
     nextStep: "Sketch the mechanical centering and capture geometry."
   },
   {
-    slug: "hydro-usv",
-    name: "Hydrographic USV",
-    description: "Small autonomous survey vessel for canals, marinas, and nearshore hydrographic work.",
-    status: "Exploring",
-    lastUpdate: "2026-09-12",
-    nextStep: "Select propulsion and control architecture."
-  },
-  {
     slug: "sup-tender",
     name: "Remote SUP Tender",
     description: "Motorized inflatable SUP platform for short remote tender runs.",
