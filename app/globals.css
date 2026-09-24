@@ -14,13 +14,21 @@ button { color:inherit; font:inherit; }
 .panel { background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:20px; }
 .panel h2 { margin:0 0 16px; font-size:18px; }
 .section-heading { display:flex; justify-content:space-between; gap:16px; align-items:flex-start; margin-bottom:8px; }
-.cards { display:grid; gap:12px; }
-.card { display:grid; grid-template-columns:1.1fr auto 2fr auto; gap:16px; align-items:center; padding:17px 0; border-top:1px solid var(--line); }
-.card:first-child { border-top:0; padding-top:8px; }
-.project-card-link { transition:border-color .15s ease, background .15s ease; border-radius:12px; padding-left:10px; padding-right:10px; }
-.project-card-link:hover { background:#171c22; }
+.cards { display:grid; gap:0; }
+.card { display:grid; grid-template-columns:1.1fr auto 2fr auto; gap:16px; align-items:center; padding:17px 10px; }
+.project-card-shell { border-top:1px solid var(--line); border-radius:12px; overflow:hidden; transition:background .15s ease; }
+.project-card-shell:first-child { border-top:0; }
+.project-card-shell:hover,.project-card-shell.is-expanded { background:#171c22; }
+.project-card-row { border-radius:12px; }
 .project-card-badges { display:flex; gap:7px; flex-wrap:wrap; }
 .project-card-status { line-height:1.45; }
+.project-card-actions { display:flex; flex-direction:column; align-items:flex-end; gap:8px; }
+.project-expand-button { border:0; background:transparent; padding:0; color:var(--muted); font-size:12px; cursor:pointer; }
+.project-expand-button:hover { color:var(--text); }
+.project-card-drawer { margin:0 10px 10px; padding:16px 0 6px; border-top:1px solid var(--line); display:grid; grid-template-columns:1.5fr 1fr; gap:24px; align-items:start; }
+.project-drawer-primary { display:grid; gap:7px; line-height:1.5; }
+.project-drawer-primary strong { font-size:14px; font-weight:600; color:#e3e7eb; }
+.project-drawer-links { display:flex; flex-wrap:wrap; gap:8px; justify-content:flex-end; }
 .name { font-weight:700; }
 .small { color:var(--muted); font-size:13px; margin-top:4px; line-height:1.45; }
 .badge { display:inline-block; border:1px solid var(--line); border-radius:999px; padding:5px 9px; font-size:12px; color:#dfe4ea; width:max-content; }
@@ -67,7 +75,7 @@ button { color:inherit; font:inherit; }
 
 @media(max-width:900px){
   .shell { padding:18px 14px 28px; }
-  .grid,.detail-grid,.resume-panel { grid-template-columns:1fr; }
+  .grid,.detail-grid,.resume-panel,.project-card-drawer { grid-template-columns:1fr; }
   .topbar,.project-heading { align-items:flex-start; gap:14px; flex-direction:column; }
   .topbar { margin-bottom:18px; }
   .brand h1 { font-size:25px; }
@@ -81,11 +89,19 @@ button { color:inherit; font:inherit; }
   .project-panel { padding:10px 14px 14px; }
   .cards { gap:0; }
   .card { display:block; padding:16px 4px; border-radius:0; }
-  .project-card-link:hover { background:transparent; }
+  .project-card-shell { border-radius:0; }
+  .project-card-shell:hover { background:transparent; }
+  .project-card-shell.is-expanded { background:#171c22; border-radius:12px; padding:0 10px; margin:0 -10px; }
   .project-card-title .name { font-size:17px; }
   .project-card-badges { margin-top:10px; }
   .project-card-status { margin-top:14px; font-size:14px; color:#dce1e7; }
-  .project-card-link > .resume-link { display:block; margin-top:14px; font-size:14px; }
+  .project-card-actions { margin-top:14px; flex-direction:row; justify-content:space-between; align-items:center; }
+  .project-card-actions .resume-link { font-size:14px; }
+  .project-expand-button { min-height:42px; padding:0 2px; font-size:13px; }
+  .project-card-drawer { margin:0 4px 12px; padding:16px 0 4px; gap:16px; }
+  .project-drawer-primary strong { font-size:15px; }
+  .project-drawer-links { justify-content:flex-start; }
+  .project-drawer-links .button { flex:1 1 140px; text-align:center; }
   .innovation-preview .preview-idea { padding:16px 0; }
   .desktop-rule { display:none; }
   .idea-preview-footer { display:block; }
