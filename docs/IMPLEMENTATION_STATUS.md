@@ -78,3 +78,16 @@ Functional:
 - simplified mobile detail layout and full-width resume/action controls.
 
 A pre-existing WorkZone Thumper project-record syntax error was discovered during validation and corrected.
+
+
+## 2026-09-24 — Native ChatGPT iPhone Launch
+Updated the Resume in ChatGPT launcher so iOS attempts to open the native ChatGPT app first.
+
+Behavior:
+- the re-entry brief is still copied to the clipboard before launch;
+- iPhone/iPad devices use the ChatGPT app URL scheme first;
+- registered ChatGPT URLs are translated into the native-app route when possible;
+- if the native handoff does not occur, the launcher falls back to the existing web destination after a short delay;
+- desktop and non-iOS behavior remains unchanged.
+
+The implementation intentionally preserves the browser fallback because OpenAI does not currently document a stable external deep-link contract for launching a specific ChatGPT Project with a prefilled prompt.
