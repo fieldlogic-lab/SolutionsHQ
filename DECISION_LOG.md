@@ -65,3 +65,16 @@ Projects with plausible protectable technical subject matter receive version, co
 - desktop detail remains available without sacrificing the mobile flow.
 
 **Reason:** Solutions HQ should be useful from a phone as a lightweight re-entry launcher, not only as a desktop portfolio dashboard.
+
+
+## 2026-09-24 — Prefer native ChatGPT on iPhone
+**Decision:** On iOS, Resume in ChatGPT should attempt to hand work off to the native ChatGPT app before using the browser.
+
+**Behavior:**
+- copy the current project/idea re-entry brief;
+- attempt the native ChatGPT app route;
+- preserve any registered ChatGPT destination when it can be mapped safely;
+- fall back to the normal web URL if native handoff is unavailable;
+- retain normal browser behavior on non-iOS devices.
+
+**Reason:** Solutions HQ is intended to be a mobile re-entry launcher. Opening Safari when the user already works in the ChatGPT iPhone app adds friction and breaks the intended browse → resume workflow. The fallback remains necessary because the external deep-link surface is not a documented stable API.
