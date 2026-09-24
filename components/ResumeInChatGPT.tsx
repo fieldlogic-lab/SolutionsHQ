@@ -26,19 +26,16 @@ export default function ResumeInChatGPT({
   const resumeBrief = [
     `Resume work on ${name}.`,
     "",
-    `Project: ${description}`,
+    `Project/idea: ${description}`,
     `Current status: ${currentStatus}`,
     `Recommended next step: ${nextStep}`,
     repo ? `Primary repository: ${repo}` : "",
     ...supportingLinks.map(link => `${link.label}: ${link.url}`),
     "",
-    "Before changing anything, review the project's source-of-truth documents and latest repository state. Continue from the current state rather than restarting or redesigning established decisions. Make routine execution decisions without stopping for confirmation unless the product direction would materially change.",
+    "Use prior project context and source-of-truth material before restarting analysis. Continue from the current state. Help me work on this now, making routine execution decisions without stopping unless the product direction would materially change.",
   ].filter(Boolean).join("\n");
 
   async function resume() {
-    const destination = chatgptProjectUrl || "https://chatgpt.com/";
-    window.open(destination, "_blank", "noopener,noreferrer");
-
     try {
       await navigator.clipboard.writeText(resumeBrief);
       setCopied(true);
@@ -46,19 +43,22 @@ export default function ResumeInChatGPT({
     } catch {
       setCopied(false);
     }
+
+    const destination = chatgptProjectUrl || "https://chatgpt.com/";
+    window.location.href = destination;
   }
 
   return (
     <div className="resume-actions">
-      <button className="button primary-button" type="button" onClick={resume}>
+      <button className="button primary-button resume-primary" type="button" onClick={resume}>
         Resume in ChatGPT
       </button>
-      <p className="small">
+      <p className="small resume-helper">
         {copied
-          ? "Resume brief copied. Paste it into the project chat that just opened."
+          ? "Resume brief copied. Paste it into ChatGPT."
           : chatgptProjectUrl
-            ? "Opens the registered ChatGPT project and copies a current re-entry brief."
-            : "Opens ChatGPT and copies a current re-entry brief. A project-specific ChatGPT link can be registered later."}
+            ? "Copies the re-entry brief and opens the registered ChatGPT project."
+            : "Copies the re-entry brief and opens ChatGPT."}
       </p>
     </div>
   );
