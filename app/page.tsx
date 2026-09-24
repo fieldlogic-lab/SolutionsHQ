@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { projects } from "@/data/projects";
 import { ideas } from "@/data/ideas";
+import ProjectCardExpandable from "@/components/ProjectCardExpandable";
 
 export default function Dashboard() {
   const active = projects.filter(p => p.status === "Active");
@@ -19,27 +20,13 @@ export default function Dashboard() {
         <div className="section-heading">
           <div>
             <h2>Projects</h2>
-            <p className="small">Tap a project to see the next move and resume work in ChatGPT.</p>
+            <p className="small">Resume immediately, or expand a project to see its next move and source links.</p>
           </div>
         </div>
 
         <div className="cards">
           {projects.map(project => (
-            <Link className="card project-card-link" href={`/projects/${project.slug}`} key={project.slug}>
-              <div className="project-card-title">
-                <div className="name">{project.name}</div>
-                <div className="small">{project.description}</div>
-              </div>
-              <div className="project-card-badges">
-                <span className="badge">{project.status}</span>
-                <span className="badge">{project.stage}</span>
-              </div>
-              <div className="project-card-status">
-                <div>{project.currentStatus}</div>
-                <div className="small">Updated {project.lastUpdate}</div>
-              </div>
-              <div className="resume-link">Resume →</div>
-            </Link>
+            <ProjectCardExpandable project={project} key={project.slug} />
           ))}
         </div>
       </section>
