@@ -12,6 +12,27 @@ type ResumeInChatGPTProps = {
   chatgptProjectUrl?: string;
 };
 
+function isIOSDevice() {
+  if (typeof navigator === "undefined") return false;
+
+  return /iPad|iPhone|iPod/.test(navigator.userAgent)
+    || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+}
+
+function nativeChatGPTUrl(webDestination: string) {
+  try {
+    const url = new URL(webDestination);
+
+    if (url.hostname === "chatgpt.com" || url.hostname.endsWith(".chatgpt.com")) {
+      return `com.openai.chat://${url.host}${url.pathname}${url.search}${url.hash}`;
+    }
+  } catch {
+    // Fall through to the generic native app launch.
+  }
+
+  return "com.openai.chat://chatgpt.com/";
+}
+
 export default function ResumeInChatGPT({
   name,
   description,
@@ -44,8 +65,37 @@ export default function ResumeInChatGPT({
       setCopied(false);
     }
 
-    const destination = chatgptProjectUrl || "https://chatgpt.com/";
-    window.location.href = destination;
+    const webDestination = chatgptProjectUrl || "https://chatgpt.com/";
+
+    if (!isIOSDevice()) {
+      window.location.href = webDestination;
+      return;
+    }
+
+    const nativeDestination = nativeChatGPTUrl(webDestination);
+    let fallbackTimer: number | undefined;
+
+    const cancelFallback = () => {
+      if (fallbackTimer !== undefined) {
+        window.clearTimeout(fallbackTimer);
+      }
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      window.removeEventListener("pagehide", cancelFallback);
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.hidden) cancelFallback();
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    window.addEventListener("pagehide", cancelFallback, { once: true });
+
+    fallbackTimer = window.setTimeout(() => {
+      cancelFallback();
+      window.location.href = webDestination;
+    }, 1500);
+
+    window.location.href = nativeDestination;
   }
 
   return (
@@ -57,8 +107,8 @@ export default function ResumeInChatGPT({
         {copied
           ? "Resume brief copied. Paste it into ChatGPT."
           : chatgptProjectUrl
-            ? "Copies the re-entry brief and opens the registered ChatGPT project."
-            : "Copies the re-entry brief and opens ChatGPT."}
+            ? "Copies the re-entry brief and opens the registered ChatGPT project, preferring the iPhone app."
+            : "Copies the re-entry brief and opens ChatGPT, preferring the iPhone app."}
       </p>
     </div>
   );
