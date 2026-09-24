@@ -63,3 +63,18 @@ Project and idea records still live in `data/projects.ts` and `data/ideas.ts`. P
 
 ## Next Development Step
 Replace manually maintained repository activity with GitHub-backed project telemetry while preserving curated `Current Status` and `Next Step` as human-readable portfolio state.
+
+
+## 2026-09-23 — Mobile Browse and Resume
+Implemented a mobile-first browse → open → resume workflow.
+
+Functional:
+- single-column project cards on mobile;
+- tap-friendly card targets and buttons;
+- Innovation Lab mobile card list;
+- individual idea detail/re-entry routes at `/ideas/[slug]`;
+- Resume in ChatGPT for both projects and ideas;
+- re-entry brief copied before opening ChatGPT;
+- simplified mobile detail layout and full-width resume/action controls.
+
+A pre-existing WorkZone Thumper project-record syntax error was discovered during validation and corrected.
