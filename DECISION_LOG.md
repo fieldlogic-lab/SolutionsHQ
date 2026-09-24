@@ -52,3 +52,16 @@ Party Chief graduated to its dedicated repository on 2026-09-23. The former incu
 Projects with plausible protectable technical subject matter receive version, contributor, disclosure, and evidence tracking. Party Chief and WorkZone Thumper have active invention records; AutoDock is active; Hydrographic USV is on watch until a genuinely novel architecture emerges.
 
 **Reason:** Ordinary Git history is useful but does not by itself capture inventorship contributions, public disclosures, technical version rationale, failed designs, or filing-review triggers.
+
+
+## 2026-09-23 — Make mobile browse/resume a first-class workflow
+**Decision:** Solutions HQ mobile UX prioritizes browsing projects and ideas, opening a detail page, and resuming work in ChatGPT.
+
+**Behavior:**
+- project and idea lists use tap-friendly cards;
+- project/idea detail pages surface the next move prominently;
+- ideas have their own re-entry pages;
+- Resume in ChatGPT copies a current re-entry brief and opens ChatGPT;
+- desktop detail remains available without sacrificing the mobile flow.
+
+**Reason:** Solutions HQ should be useful from a phone as a lightweight re-entry launcher, not only as a desktop portfolio dashboard.
