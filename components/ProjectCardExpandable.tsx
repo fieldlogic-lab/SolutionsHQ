@@ -53,6 +53,11 @@ export default function ProjectCardExpandable({ project }: { project: Project })
             <Link className="button primary-button" href={`/projects/${project.slug}`}>
               Open Project
             </Link>
+            {project.ssotUrl && (
+              <a className="button" href={project.ssotUrl} target="_blank" rel="noreferrer">
+                Read SSOT
+              </a>
+            )}
             {project.repo && (
               <a className="button" href={project.repo} target="_blank" rel="noreferrer">
                 Repository
