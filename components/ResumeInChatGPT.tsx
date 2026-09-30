@@ -10,6 +10,8 @@ type ResumeInChatGPTProps = {
   repo?: string;
   supportingLinks?: { label: string; url: string }[];
   chatgptProjectUrl?: string;
+  buttonLabel?: string;
+  promptOverride?: string;
 };
 
 function isIOSDevice() {
@@ -41,10 +43,12 @@ export default function ResumeInChatGPT({
   repo,
   supportingLinks = [],
   chatgptProjectUrl,
+  buttonLabel = "Resume in ChatGPT",
+  promptOverride,
 }: ResumeInChatGPTProps) {
   const [copied, setCopied] = useState(false);
 
-  const resumeBrief = [
+  const generatedBrief = [
     `Resume work on ${name}.`,
     "",
     `Project/idea: ${description}`,
@@ -55,6 +59,7 @@ export default function ResumeInChatGPT({
     "",
     "Use prior project context and source-of-truth material before restarting analysis. Continue from the current state. Help me work on this now, making routine execution decisions without stopping unless the product direction would materially change.",
   ].filter(Boolean).join("\n");
+  const resumeBrief = promptOverride || generatedBrief;
 
   async function resume() {
     try {
@@ -101,7 +106,7 @@ export default function ResumeInChatGPT({
   return (
     <div className="resume-actions">
       <button className="button primary-button resume-primary" type="button" onClick={resume}>
-        Resume in ChatGPT
+        {buttonLabel}
       </button>
       <p className="small resume-helper">
         {copied
