@@ -62,6 +62,17 @@ button { color:inherit; font:inherit; }
 .resume-primary { min-height:48px; font-size:14px; padding:12px 16px; }
 .resume-helper { max-width:360px; }
 .link-stack { display:flex; flex-direction:column; align-items:flex-start; gap:10px; }
+.workstreams-panel { margin-top:16px; }
+.workstreams-panel .section-heading h2 { margin:5px 0 0; }
+.workstream-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin-top:16px; }
+.workstream-card { border:1px solid var(--line); border-radius:13px; padding:16px; background:#101419; display:flex; flex-direction:column; min-width:0; }
+.workstream-card-head { display:flex; justify-content:space-between; gap:12px; align-items:flex-start; margin-bottom:12px; }
+.workstream-card h3 { margin:9px 0 0; font-size:17px; }
+.workstream-card > strong { line-height:1.4; font-size:14px; }
+.workstream-card .small { margin-bottom:16px; }
+.workstream-card .resume-actions { margin-top:auto; width:100%; }
+.workstream-card .resume-primary { width:100%; text-align:center; }
+.workstream-card .resume-helper { display:none; }
 .idea-list { display:grid; gap:12px; margin-top:24px; }
 .idea-card { display:block; background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:18px; }
 .idea-card:hover { border-color:#3b444f; }
@@ -115,6 +126,9 @@ button { color:inherit; font:inherit; }
   .resume-actions { width:100%; }
   .resume-primary { display:block; width:100%; min-height:54px; font-size:16px; text-align:center; border-radius:12px; }
   .resume-helper { margin:9px 0 0; }
+  .workstream-grid { grid-template-columns:1fr; gap:10px; }
+  .workstream-card { padding:15px; }
+  .workstream-card .resume-primary { min-height:48px; font-size:14px; }
   .link-stack,.link-stack .button { width:100%; }
   .link-stack .button { text-align:center; min-height:48px; padding-top:13px; }
   .idea-list { gap:10px; margin-top:18px; }
