@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import ResumeInChatGPT from "@/components/ResumeInChatGPT";
+import WorkstreamManager from "@/components/WorkstreamManager";
 import { projects } from "@/data/projects";
 
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -58,55 +59,20 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       />
     </section>
 
-    <section className="panel workstreams-panel">
-      <div className="section-heading">
-        <div>
-          <div className="eyebrow">Parallel workstreams</div>
-          <h2>Choose a productive path</h2>
-        </div>
-        <span className="small">These can move independently unless marked blocked.</span>
-      </div>
-      <div className="workstream-grid">
-        {workstreams.map(workstream => {
-          const prompt = [
-            `Continue work on ${project.name}, specifically the "${workstream.label}" workstream.`,
-            "",
-            `Project: ${project.description}`,
-            `Current project status: ${project.currentStatus}`,
-            `Current ship target: ${project.nextStep}`,
-            `Workstream objective: ${workstream.title}`,
-            `Immediate next step: ${workstream.nextStep}`,
-            project.repo ? `Primary repository: ${project.repo}` : "",
-            project.ssotUrl ? `Source of truth: ${project.ssotUrl}` : "",
-            ...(project.supportingLinks ?? []).map(link => `${link.label}: ${link.url}`),
-            "",
-            "Read the relevant source-of-truth material before making changes. Stay inside this workstream unless another area must change to make it function. Prefer the smallest shippable increment and preserve unrelated behavior.",
-          ].filter(Boolean).join("\n");
-
-          return <article className="workstream-card" key={workstream.label}>
-            <div className="workstream-card-head">
-              <div>
-                <span className="badge">{workstream.status}</span>
-                <h3>{workstream.label}</h3>
-              </div>
-            </div>
-            <strong>{workstream.title}</strong>
-            <p className="small">{workstream.nextStep}</p>
-            <ResumeInChatGPT
-              name={project.name}
-              description={project.description}
-              currentStatus={project.currentStatus}
-              nextStep={workstream.nextStep}
-              repo={project.repo}
-              supportingLinks={project.supportingLinks}
-              chatgptProjectUrl={project.chatgptProjectUrl}
-              buttonLabel={`Work on ${workstream.label}`}
-              promptOverride={prompt}
-            />
-          </article>;
-        })}
-      </div>
-    </section>
+    <WorkstreamManager
+      project={{
+        slug: project.slug,
+        name: project.name,
+        description: project.description,
+        currentStatus: project.currentStatus,
+        nextStep: project.nextStep,
+        repo: project.repo,
+        ssotUrl: project.ssotUrl,
+        supportingLinks: project.supportingLinks,
+        chatgptProjectUrl: project.chatgptProjectUrl,
+      }}
+      initialWorkstreams={workstreams}
+    />
 
     <div className="detail-grid">
       <section className="panel">
