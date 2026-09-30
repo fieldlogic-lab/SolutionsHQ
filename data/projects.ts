@@ -6,6 +6,15 @@ export type ProjectLink = {
   url: string;
 };
 
+export type ProjectWorkstreamStatus = "Ready" | "Blocked" | "In Progress" | "Shipped";
+
+export type ProjectWorkstream = {
+  label: string;
+  title: string;
+  nextStep: string;
+  status: ProjectWorkstreamStatus;
+};
+
 export type Project = {
   slug: string;
   name: string;
@@ -20,6 +29,7 @@ export type Project = {
   app?: string;
   supportingLinks?: ProjectLink[];
   chatgptProjectUrl?: string;
+  workstreams?: ProjectWorkstream[];
 };
 
 export const projects: Project[] = [
@@ -33,7 +43,12 @@ export const projects: Project[] = [
     currentStatus: "The household prototype is ready for real household evaluation. Live weather and marine data, Boat, Utilities, HELM TV rotation, and Port Jefferson practice-weather refinements are merged and verified.",
     nextStep: "Run HELM on the intended household computer and a second device or TV, record friction from real use, and prioritize fixes before adding another major module.",
     repo: "https://github.com/fieldlogic-lab/HELM",
-    ssotUrl: "https://github.com/fieldlogic-lab/HELM/blob/main/OPERATING_SYSTEM.md"
+    ssotUrl: "https://github.com/fieldlogic-lab/HELM/blob/main/OPERATING_SYSTEM.md",
+    workstreams: [
+      { label: "Household Trial", title: "Run the real-household validation loop", nextStep: "Use HELM on the intended household computer plus a second device or TV, capture friction, and turn the findings into a short prioritized fix list.", status: "Ready" },
+      { label: "Today UX", title: "Tighten the daily operating surface", nextStep: "Review the Today experience for fast household use and implement the smallest changes that reduce taps, ambiguity, or missing context.", status: "Ready" },
+      { label: "Data Reliability", title: "Harden live household data", nextStep: "Audit the current weather, marine, utilities, and coaching data paths for broken or stale states and fix the highest-impact reliability issue.", status: "Ready" }
+    ]
   },
   {
     slug: "surveyos",
@@ -48,6 +63,12 @@ export const projects: Project[] = [
     ssotUrl: "https://github.com/fieldlogic-lab/SurveyOS/blob/main/README.md",
     supportingLinks: [
       { label: "Research workflow repo", url: "https://github.com/fieldlogic-lab/parcel-research-workflow" }
+    ],
+    workstreams: [
+      { label: "Intake", title: "Finish intake-to-project handoff", nextStep: "Validate email intake, known-contact handling, project creation, and folder creation as one clean path without changing unrelated modules.", status: "Ready" },
+      { label: "Quote", title: "Finish reply-ready quoting", nextStep: "Refine quote generation and the reply-to-original-email flow so a professional quote can be reviewed and sent with minimal manual editing.", status: "Ready" },
+      { label: "GIS", title: "Complete the GIS loader handoff", nextStep: "Connect accepted project state and folder creation into the GIS loader so project geometry and production files open in the correct context.", status: "Ready" },
+      { label: "Delivery", title: "Close the delivery and billing loop", nextStep: "Validate deliverables, invoice, payment, and closeout state transitions and remove any remaining gaps in the end-to-end workflow.", status: "Ready" }
     ]
   },
   {
@@ -99,7 +120,12 @@ export const projects: Project[] = [
     currentStatus: "Party Chief now has its own authoritative repository with product scope, decision log, execution contract, implementation status, validation plan, commercialization plan, and organized CAD/BOM/prototype areas. Remaining work is physical prototype completion and proof.",
     nextStep: "Migrate any existing CAD, drawings, prototype images, and commercial assets into PartyChief, then finish the physical prototype, run the live-keg test, and capture distributor feedback.",
     repo: "https://github.com/fieldlogic-lab/PartyChief",
-    ssotUrl: "https://github.com/fieldlogic-lab/PartyChief/blob/main/PRODUCT_SCOPE.md"
+    ssotUrl: "https://github.com/fieldlogic-lab/PartyChief/blob/main/PRODUCT_SCOPE.md",
+    workstreams: [
+      { label: "Prototype", title: "Finish the physical prototype", nextStep: "Consolidate the current CAD and drawings, identify the minimum remaining printed and purchased parts, and prepare the first complete assembly.", status: "Ready" },
+      { label: "Validation", title: "Prepare the live-keg test", nextStep: "Turn the validation plan into a practical test checklist with pass/fail criteria, measurements, and evidence to capture during the first live-keg run.", status: "Ready" },
+      { label: "Commercial", title: "Prepare distributor feedback", nextStep: "Build a concise distributor-facing demo and feedback script focused on setup time, portability, cleaning, durability, and willingness to stock or recommend.", status: "Ready" }
+    ]
   },
   {
     slug: "hydrographic-usv",
@@ -219,4 +245,9 @@ export const projects: Project[] = [
     ssotUrl: "https://github.com/fieldlogic-lab/SolutionsHQ/blob/main/OPERATING_SYSTEM.md",
     app: "https://solutions-hq.vercel.app/"
   }
-];
+];,
+    workstreams: [
+      { label: "Execution Panel", title: "Make project drill-downs action-oriented", nextStep: "Refine the project-detail execution panel so each project exposes a clear ship target, blockers, project access, and multiple parallel workstream entry points.", status: "In Progress" },
+      { label: "Project State", title: "Improve source-of-truth project state", nextStep: "Replace manual status text where practical with durable GitHub-backed project telemetry and make stale state visible instead of silently trusted.", status: "Ready" },
+      { label: "Re-entry", title: "Improve ChatGPT project re-entry", nextStep: "Make each workstream launch with project-specific context, relevant source links, the exact current objective, and explicit scope boundaries.", status: "Ready" }
+    ]
