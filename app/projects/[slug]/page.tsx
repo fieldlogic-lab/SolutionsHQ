@@ -8,6 +8,27 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   const project = projects.find(p => p.slug === slug);
   if (!project) notFound();
 
+  const workstreams = project.workstreams ?? [
+    {
+      label: "Ship Next",
+      title: "Move the current ship target forward",
+      nextStep: project.nextStep,
+      status: "Ready" as const,
+    },
+    {
+      label: "Blockers",
+      title: "Find and clear the highest-impact blocker",
+      nextStep: "Review the current project state, identify the single biggest blocker to shipping, and remove it without expanding scope.",
+      status: "Ready" as const,
+    },
+    {
+      label: "Project State",
+      title: "Reconcile the project source of truth",
+      nextStep: "Compare the current implementation, repository, and source-of-truth material; update the working plan around what is actually true now.",
+      status: "Ready" as const,
+    },
+  ];
+
   return <main className="detail">
     <Link className="small" href="/">← Dashboard</Link>
     <div className="project-heading">
@@ -37,6 +58,56 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       />
     </section>
 
+    <section className="panel workstreams-panel">
+      <div className="section-heading">
+        <div>
+          <div className="eyebrow">Parallel workstreams</div>
+          <h2>Choose a productive path</h2>
+        </div>
+        <span className="small">These can move independently unless marked blocked.</span>
+      </div>
+      <div className="workstream-grid">
+        {workstreams.map(workstream => {
+          const prompt = [
+            `Continue work on ${project.name}, specifically the "${workstream.label}" workstream.`,
+            "",
+            `Project: ${project.description}`,
+            `Current project status: ${project.currentStatus}`,
+            `Current ship target: ${project.nextStep}`,
+            `Workstream objective: ${workstream.title}`,
+            `Immediate next step: ${workstream.nextStep}`,
+            project.repo ? `Primary repository: ${project.repo}` : "",
+            project.ssotUrl ? `Source of truth: ${project.ssotUrl}` : "",
+            ...(project.supportingLinks ?? []).map(link => `${link.label}: ${link.url}`),
+            "",
+            "Read the relevant source-of-truth material before making changes. Stay inside this workstream unless another area must change to make it function. Prefer the smallest shippable increment and preserve unrelated behavior.",
+          ].filter(Boolean).join("\n");
+
+          return <article className="workstream-card" key={workstream.label}>
+            <div className="workstream-card-head">
+              <div>
+                <span className="badge">{workstream.status}</span>
+                <h3>{workstream.label}</h3>
+              </div>
+            </div>
+            <strong>{workstream.title}</strong>
+            <p className="small">{workstream.nextStep}</p>
+            <ResumeInChatGPT
+              name={project.name}
+              description={project.description}
+              currentStatus={project.currentStatus}
+              nextStep={workstream.nextStep}
+              repo={project.repo}
+              supportingLinks={project.supportingLinks}
+              chatgptProjectUrl={project.chatgptProjectUrl}
+              buttonLabel={`Work on ${workstream.label}`}
+              promptOverride={prompt}
+            />
+          </article>;
+        })}
+      </div>
+    </section>
+
     <div className="detail-grid">
       <section className="panel">
         <h2>Current Status</h2>
@@ -50,6 +121,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           {project.repo
             ? <a className="button" href={project.repo} target="_blank" rel="noreferrer">Open GitHub Repository</a>
             : <span className="small">Repository link not registered.</span>}
+          {project.ssotUrl && <a className="button" href={project.ssotUrl} target="_blank" rel="noreferrer">Read SSOT</a>}
           {project.app && <a className="button" href={project.app} target="_blank" rel="noreferrer">Open Application</a>}
           {project.supportingLinks?.map(link => (
             <a className="button secondary-button" href={link.url} key={link.url} target="_blank" rel="noreferrer">
