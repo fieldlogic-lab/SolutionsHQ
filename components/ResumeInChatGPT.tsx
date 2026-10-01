@@ -21,6 +21,23 @@ function isIOSDevice() {
     || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
 }
 
+function chatGPTUrlWithPrompt(destination: string, prompt: string) {
+  try {
+    const url = new URL(destination);
+
+    if (url.hostname === "chatgpt.com" || url.hostname.endsWith(".chatgpt.com")) {
+      url.searchParams.set("q", prompt);
+      return url.toString();
+    }
+  } catch {
+    // Fall through to the standard ChatGPT destination.
+  }
+
+  const url = new URL("https://chatgpt.com/");
+  url.searchParams.set("q", prompt);
+  return url.toString();
+}
+
 function nativeChatGPTUrl(webDestination: string) {
   try {
     const url = new URL(webDestination);
@@ -70,7 +87,8 @@ export default function ResumeInChatGPT({
       setCopied(false);
     }
 
-    const webDestination = chatgptProjectUrl || "https://chatgpt.com/";
+    const baseDestination = chatgptProjectUrl || "https://chatgpt.com/";
+    const webDestination = chatGPTUrlWithPrompt(baseDestination, resumeBrief);
 
     if (!isIOSDevice()) {
       window.location.href = webDestination;
@@ -110,10 +128,10 @@ export default function ResumeInChatGPT({
       </button>
       <p className="small resume-helper">
         {copied
-          ? "Resume brief copied. Paste it into ChatGPT."
+          ? "Next-task prompt copied as a fallback."
           : chatgptProjectUrl
-            ? "Copies the re-entry brief and opens the registered ChatGPT project, preferring the iPhone app."
-            : "Copies the re-entry brief and opens ChatGPT, preferring the iPhone app."}
+            ? "Opens the registered ChatGPT project with the next-task prompt prefilled."
+            : "Opens ChatGPT with the next-task prompt prefilled."}
       </p>
     </div>
   );
