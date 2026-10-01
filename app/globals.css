@@ -28,7 +28,15 @@ button { color:inherit; font:inherit; }
 .project-card-drawer { margin:0 10px 10px; padding:16px 0 6px; border-top:1px solid var(--line); display:grid; grid-template-columns:1.5fr 1fr; gap:24px; align-items:start; }
 .project-drawer-primary { display:grid; gap:7px; line-height:1.5; }
 .project-drawer-primary strong { font-size:14px; font-weight:600; color:#e3e7eb; }
-.project-drawer-links { display:flex; flex-wrap:wrap; gap:8px; justify-content:flex-end; }
+.project-drawer-workstreams { display:grid; gap:10px; margin-top:6px; }
+.project-drawer-workstream { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:14px; align-items:center; border:1px solid var(--line); border-radius:11px; padding:12px; background:#101419; }
+.project-drawer-workstream-copy { min-width:0; }
+.project-drawer-workstream-copy > span { display:block; margin-top:4px; color:#d5dae0; font-size:13px; line-height:1.4; }
+.project-drawer-workstream-copy p { margin:5px 0 0; color:var(--muted); font-size:12px; line-height:1.45; }
+.project-drawer-workstream .resume-actions { min-width:160px; }
+.project-drawer-workstream .resume-primary { width:100%; white-space:nowrap; }
+.project-drawer-workstream .resume-helper { display:none; }
+.project-drawer-links { display:flex; flex-wrap:wrap; gap:8px; justify-content:flex-end; align-content:start; }
 .name { font-weight:700; }
 .small { color:var(--muted); font-size:13px; margin-top:4px; line-height:1.45; }
 .badge { display:inline-block; border:1px solid var(--line); border-radius:999px; padding:5px 9px; font-size:12px; color:#dfe4ea; width:max-content; }
@@ -124,6 +132,9 @@ button { color:inherit; font:inherit; }
   .project-expand-button { min-height:42px; padding:0 2px; font-size:13px; }
   .project-card-drawer { margin:0 4px 12px; padding:16px 0 4px; gap:16px; }
   .project-drawer-primary strong { font-size:15px; }
+  .project-drawer-workstream { grid-template-columns:1fr; gap:10px; }
+  .project-drawer-workstream .resume-actions { min-width:0; }
+  .project-drawer-workstream .resume-primary { min-height:48px; font-size:14px; }
   .project-drawer-links { justify-content:flex-start; }
   .project-drawer-links .button { flex:1 1 140px; text-align:center; }
   .innovation-preview .preview-idea { padding:16px 0; }
