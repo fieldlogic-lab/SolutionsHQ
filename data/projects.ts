@@ -243,11 +243,11 @@ export const projects: Project[] = [
     nextStep: "Finish GitHub-backed project telemetry and continue replacing manual portfolio activity with durable source-of-truth integrations.",
     repo: "https://github.com/fieldlogic-lab/SolutionsHQ",
     ssotUrl: "https://github.com/fieldlogic-lab/SolutionsHQ/blob/main/OPERATING_SYSTEM.md",
-    app: "https://solutions-hq.vercel.app/"
-  }
-];,
+    app: "https://solutions-hq.vercel.app/",
     workstreams: [
       { label: "Execution Panel", title: "Make project drill-downs action-oriented", nextStep: "Refine the project-detail execution panel so each project exposes a clear ship target, blockers, project access, and multiple parallel workstream entry points.", status: "In Progress" },
       { label: "Project State", title: "Improve source-of-truth project state", nextStep: "Replace manual status text where practical with durable GitHub-backed project telemetry and make stale state visible instead of silently trusted.", status: "Ready" },
       { label: "Re-entry", title: "Improve ChatGPT project re-entry", nextStep: "Make each workstream launch with project-specific context, relevant source links, the exact current objective, and explicit scope boundaries.", status: "Ready" }
     ]
+  }
+];
