@@ -2,10 +2,52 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import type { Project } from "@/data/projects";
+import ResumeInChatGPT from "@/components/ResumeInChatGPT";
+import type { Project, ProjectWorkstream } from "@/data/projects";
+
+function fallbackWorkstreams(project: Project): ProjectWorkstream[] {
+  return [
+    {
+      label: "Ship Next",
+      title: "Move the current ship target forward",
+      nextStep: project.nextStep,
+      status: "Ready",
+    },
+    {
+      label: "Blockers",
+      title: "Clear the highest-impact blocker",
+      nextStep: "Review the current project state, identify the single biggest blocker to shipping, and remove it without expanding scope.",
+      status: "Ready",
+    },
+    {
+      label: "Project State",
+      title: "Reconcile the source of truth",
+      nextStep: "Compare the current implementation, repository, and source-of-truth material; update the working plan around what is actually true now.",
+      status: "Ready",
+    },
+  ];
+}
+
+function workstreamPrompt(project: Project, workstream: ProjectWorkstream) {
+  return [
+    `Continue work on ${project.name}, specifically the "${workstream.label}" workstream.`,
+    "",
+    `Project: ${project.description}`,
+    `Current project status: ${project.currentStatus}`,
+    `Current ship target: ${project.nextStep}`,
+    `Workstream objective: ${workstream.title}`,
+    `Immediate next step: ${workstream.nextStep}`,
+    project.repo ? `Primary repository: ${project.repo}` : "",
+    project.ssotUrl ? `Source of truth: ${project.ssotUrl}` : "",
+    ...(project.supportingLinks ?? []).map(link => `${link.label}: ${link.url}`),
+    "",
+    "Use prior project context and source-of-truth material before restarting analysis. Work on this task now. Stay inside this workstream unless another area must change to make it function, and prefer the smallest shippable increment.",
+  ].filter(Boolean).join("\n");
+}
 
 export default function ProjectCardExpandable({ project }: { project: Project }) {
   const [expanded, setExpanded] = useState(false);
+  const workstreams = project.workstreams?.length ? project.workstreams : fallbackWorkstreams(project);
 
   return (
     <article className={`project-card-shell${expanded ? " is-expanded" : ""}`}>
@@ -27,7 +69,7 @@ export default function ProjectCardExpandable({ project }: { project: Project })
 
         <div className="project-card-actions">
           <Link className="resume-link" href={`/projects/${project.slug}`}>
-            Resume →
+            Open →
           </Link>
           <button
             className="project-expand-button"
@@ -45,13 +87,34 @@ export default function ProjectCardExpandable({ project }: { project: Project })
       {expanded && (
         <div className="project-card-drawer" id={`project-details-${project.slug}`}>
           <div className="project-drawer-primary">
-            <span className="eyebrow">Next Action</span>
-            <strong>{project.nextStep}</strong>
+            <span className="eyebrow">What do you want to work on?</span>
+            <div className="project-drawer-workstreams">
+              {workstreams.map(workstream => (
+                <div className="project-drawer-workstream" key={workstream.label}>
+                  <div className="project-drawer-workstream-copy">
+                    <strong>{workstream.label}</strong>
+                    <span>{workstream.title}</span>
+                    <p>{workstream.nextStep}</p>
+                  </div>
+                  <ResumeInChatGPT
+                    name={project.name}
+                    description={project.description}
+                    currentStatus={project.currentStatus}
+                    nextStep={workstream.nextStep}
+                    repo={project.repo}
+                    supportingLinks={project.supportingLinks}
+                    chatgptProjectUrl={project.chatgptProjectUrl}
+                    buttonLabel={`Work on ${workstream.label}`}
+                    promptOverride={workstreamPrompt(project, workstream)}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
 
           <div className="project-drawer-links">
             <Link className="button primary-button" href={`/projects/${project.slug}`}>
-              Open Project
+              Open Full Project
             </Link>
             {project.ssotUrl && (
               <a className="button" href={project.ssotUrl} target="_blank" rel="noreferrer">
