@@ -247,7 +247,7 @@ export const projects: Project[] = [
     ],
     workstreams: [
       { label: "Platform", title: "Refine the core point of view", nextStep: "Pressure-test the People, Systems & Performance thesis and preserve the strongest language, frameworks, and distinctions.", status: "Ready" },
-      { label: "Story Bank", title: "Build the story inventory", nextStep: "Capture stories from rowing, boats, aviation, surveying, utilities, technology, and entrepreneurship and tag each by concept, audience, and talk fit.", status: "Ready" },
+      { label: "Story Bank", title: "Build the story inventory", nextStep: "Populate the established story-bank framework with real stories, score them, and promote the strongest material toward Talk Ready or Signature status.", status: "In Progress" },
       { label: "Talks", title: "Develop the flagship talks", nextStep: "Use The Boat Tells the Truth as the first proof point, then outline You Can't Order Commitment and Stop Working So Hard in 15-, 30-, and 45-minute forms.", status: "Ready" },
       { label: "Market", title: "Create the speaking runway", nextStep: "Build a LinkedIn-visible speaker presence, preserve video and audience feedback, and track corporate and conference opportunities without overbuilding a separate brand.", status: "Ready" }
     ]
