@@ -233,6 +233,26 @@ export const projects: Project[] = [
     ]
   },
   {
+    slug: "speaking-platform",
+    name: "Speaking Platform",
+    description: "People, systems, and performance speaking platform built around alignment, ownership, and better system design.",
+    status: "Active",
+    stage: "Explore",
+    lastUpdate: "2026-10-06",
+    currentStatus: "The platform thesis is defined around People, Systems & Performance. Three flagship talk territories are identified: The Boat Tells the Truth, You Can't Order Commitment, and Stop Working So Hard.",
+    nextStep: "Build the first structured story bank from existing coaching, maritime, aviation, surveying, utility, technology, and entrepreneurship experiences, tagged to the platform's core concepts.",
+    ssotUrl: "https://github.com/fieldlogic-lab/SolutionsHQ/blob/main/docs/scopes/SPEAKING_PLATFORM_SCOPE.md",
+    supportingLinks: [
+      { label: "Speaking platform scope", url: "https://github.com/fieldlogic-lab/SolutionsHQ/blob/main/docs/scopes/SPEAKING_PLATFORM_SCOPE.md" }
+    ],
+    workstreams: [
+      { label: "Platform", title: "Refine the core point of view", nextStep: "Pressure-test the People, Systems & Performance thesis and preserve the strongest language, frameworks, and distinctions.", status: "Ready" },
+      { label: "Story Bank", title: "Build the story inventory", nextStep: "Capture stories from rowing, boats, aviation, surveying, utilities, technology, and entrepreneurship and tag each by concept, audience, and talk fit.", status: "Ready" },
+      { label: "Talks", title: "Develop the flagship talks", nextStep: "Use The Boat Tells the Truth as the first proof point, then outline You Can't Order Commitment and Stop Working So Hard in 15-, 30-, and 45-minute forms.", status: "Ready" },
+      { label: "Market", title: "Create the speaking runway", nextStep: "Build a LinkedIn-visible speaker presence, preserve video and audience feedback, and track corporate and conference opportunities without overbuilding a separate brand.", status: "Ready" }
+    ]
+  },
+  {
     slug: "solutions-hq",
     name: "Solutions HQ",
     description: "Portfolio, re-entry, and innovation command center for Massi Solutions.",
