@@ -27,8 +27,16 @@ Initial Kotlin app records Android GPS_PROVIDER locations in a location-type for
 - [ ] Implement in-app session list and CSV sharing/export.
 - [ ] Probe HydroLite Bluetooth serial service and validate depth message parsing.
 - [ ] Record raw depth observations and pair with GNSS via timestamps.
-- [ ] Add GNSS-quality checks, sensor offsets, survey datum/water-level corrections and RTK interface.
+- [x] Define State Plane / NAVD88 metadata and acceptance specification (no coordinate transformation yet).
+- [ ] Implement and validate State Plane EPSG:2263 output with explicitly verified datum transformation.
+- [ ] Add GNSS-quality checks, RTK support, vertical control, transducer offsets, geoid/water-level corrections and validated NAVD88 bottom elevations.
 - [ ] Validate on water with independent check measurements.
+
+## Coordinate standard (agreed 2026-10-08)
+- Target: NAD83 / New York Long Island State Plane, EPSG:2263, easting and northing in US survey feet (subject to required survey realization/epoch confirmation).
+- Vertical target: NAVD88 elevations in feet. Never label raw echosounder depth or phone altitude NAVD88. Until valid survey-quality vertical control is present, corrected bottom elevation remains null.
+- Preserve raw WGS84/geodetic fixes, depth observations, datum metadata, all quality indicators and timestamps.
+- See [coordinate and datum contract](../../prototypes/tridrone-logger/COORDINATE_DATUM.md).
 
 ## Guardrails
 Phone GNSS is not automatically RTK or survey-grade. Raw depth is not corrected seabed elevation. Preserve original timestamp, monotonic clock, quality metadata and raw depth sentences. Missing GPS/depth readings must never be interpolated silently.
