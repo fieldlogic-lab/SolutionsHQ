@@ -1,22 +1,39 @@
-# Hydrographic USV — Project Scope
+# TriDrone — Hydrographic Survey Logger Scope
 
-## Purpose
-Develop a compact autonomous/uncrewed surface vessel for shallow-water survey work in canals, marinas, and Long Island nearshore environments.
+Updated: 2026-10-08
 
-## Current state
-Concept architecture exists around dual GNSS, ArduPilot, 12V LiFePO4 power, printable components, and trolling-motor / brushless propulsion options. No authoritative project repository exists yet.
+## Goal
+Use an existing Motorola Moto G Stylus 5G (2023) as a standalone, low-cost GNSS and depth data logger on the existing Seafloor Systems TriDrone. No additional microcomputer or dedicated GNSS hardware for the first milestone.
 
-## Near-term objective
-Freeze a first prototype architecture and build a controlled-water proof platform.
+## Current implementation status
+**Build / Android source scaffold committed, not field-validated.**
+Source: [Android logger prototype](../../prototypes/tridrone-logger/README.md).
 
-## In scope
-Hull/platform selection, propulsion, steering, power, GNSS, autonomy, communications, hydrographic payload integration, manual override, CAD/printed parts, field software, safety, field tests, and MLS operating workflow interfaces.
+Initial Kotlin app records Android GPS_PROVIDER locations in a location-type foreground service and writes raw position/timing/quality fields to app-private CSV. It has **not** been compiled into or installed as an APK. No Bluetooth depth collection implemented yet.
 
-## Boundaries
-SurveyOS can receive project/data outputs. Massi Land Surveying can operate the system commercially. The USV engineering platform owns its own technical source of truth.
+## Architecture
+- Moto G Stylus 5G (2023): GNSS, processing, local storage, Bluetooth, optional communications.
+- HydroLite Plus: existing echosounder interface with Bluetooth connection. Leave internal RS-232 wiring untouched.
+- Bluetooth Classic serial access **hypothesis** subject to protocol and hardware tests; do not assume successful connection or sentence formatting.
+- Optionally integrate existing Bad Elf Flex Max RTK later after validating externally accessible position/quality data.
+- Export raw and processed survey observations to GIS workflows and SurveyOS.
 
-## Proposed authoritative repository
-`fieldlogic-lab/Hydrographic-USV`
+## Milestones
+- [x] Select phone-only architecture and target hardware.
+- [x] Commit initial Kotlin location-service + local CSV source scaffold.
+- [ ] Compile Android project and generate debug APK.
+- [ ] Install on Moto G Stylus 5G (2023), test permission flow and background locked-screen recording.
+- [ ] Implement in-app session list and CSV sharing/export.
+- [ ] Probe HydroLite Bluetooth serial service and validate depth message parsing.
+- [ ] Record raw depth observations and pair with GNSS via timestamps.
+- [ ] Add GNSS-quality checks, sensor offsets, survey datum/water-level corrections and RTK interface.
+- [ ] Validate on water with independent check measurements.
 
-## Next step
-Select the propulsion/control architecture and define the first prototype mission envelope, payload, endurance, and validation plan.
+## Guardrails
+Phone GNSS is not automatically RTK or survey-grade. Raw depth is not corrected seabed elevation. Preserve original timestamp, monotonic clock, quality metadata and raw depth sentences. Missing GPS/depth readings must never be interpolated silently.
+
+## Out of scope for current milestone
+Autopilot, propulsion, remote control, cameras, photogrammetry and autonomous routing.
+
+## Repository
+Until a separate TriDrone repository is created, this project is tracked in SolutionsHQ. A dedicated repository remains a future organizational task; do not treat the source scaffold as a shippable APK.
