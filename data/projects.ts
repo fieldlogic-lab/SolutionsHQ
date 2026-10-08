@@ -134,8 +134,8 @@ export const projects: Project[] = [
     status: "Active",
     stage: "Build",
     lastUpdate: "2026-10-08",
-    currentStatus: "Moto G Stylus 5G (2023) selected as onboard computer and standalone GNSS receiver. Kotlin source scaffold for offline GNSS CSV logging committed to SolutionsHQ/prototypes/tridrone-logger. APK compilation, installation, real phone logging, HydroLite Plus Bluetooth connection and survey accuracy remain unverified. No autopilot in current scope.",
-    nextStep: "Build and install Android prototype on Moto G Stylus 5G (2023); verify accurate UTC timestamped GNSS CSV capture with phone locked, then test HydroLite Plus Bluetooth Classic serial protocol when the device is available.",
+    currentStatus: "Moto G Stylus 5G (2023) offline GNSS logger source and APK CI workflow committed. Target output fixed as NAD83 / New York Long Island State Plane EPSG:2263 (US survey feet) and NAVD88 elevations (feet); implementation and survey vertical control remain pending. APK build, phone validation and HydroLite Bluetooth connection are unverified.",
+    nextStep: "Verify APK build and on-phone GPS logging, implement tested EPSG:2263 projection and quality metadata, and keep NAVD88 bottom elevations unavailable until a valid vertical control workflow is established.",
     ssotUrl: "https://github.com/fieldlogic-lab/SolutionsHQ/blob/main/docs/scopes/HYDROGRAPHIC_USV_SCOPE.md",
     supportingLinks: [
       { label: "GitHub project entry", url: "https://github.com/fieldlogic-lab/SolutionsHQ/issues/3" },
@@ -145,7 +145,7 @@ export const projects: Project[] = [
     workstreams: [
       { label: "Android logger", title: "Compile and validate phone GPS logging", nextStep: "Build the Kotlin scaffold, deploy to Moto G Stylus 5G 2023, verify foreground GNSS records and data persistence.", status: "In Progress" },
       { label: "HydroLite", title: "Decode live sonar over Bluetooth", nextStep: "Verify Bluetooth Classic RFCOMM pairing and save raw depth observations when HydroLite hardware is available.", status: "Blocked" },
-      { label: "Survey data", title: "Synchronize and export soundings", nextStep: "Implement depth/GNSS time matching and raw plus merged CSV; distinguish uncorrected depth from seabed elevation.", status: "Ready" }
+      { label: "Survey data", title: "State Plane + NAVD88 survey deliverables", nextStep: "Implement tested EPSG:2263 output and GNSS/depth synchronization; define survey-grade NAVD88 vertical control before calculating bottom elevations.", status: "Ready" }
     ]
   },
   {
