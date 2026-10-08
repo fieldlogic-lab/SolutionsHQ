@@ -129,17 +129,23 @@ export const projects: Project[] = [
   },
   {
     slug: "hydrographic-usv",
-    name: "Hydrographic USV",
-    description: "Compact autonomous survey vessel for shallow-water hydrographic work.",
+    name: "TriDrone — Hydrographic Logger",
+    description: "Independent Android GNSS and depth logger for Seafloor Systems TriDrone; autopilot deferred.",
     status: "Active",
-    stage: "Explore",
-    lastUpdate: "2026-09-12",
-    currentStatus: "The concept architecture exists around dual GNSS, ArduPilot, 12V LiFePO4 power, printable components, and trolling-motor or brushless propulsion. It now has enough independent engineering scope to graduate from Innovation Lab.",
-    nextStep: "Create the dedicated repository, select the propulsion/control architecture, and define the first prototype mission envelope, payload, endurance, and controlled-water validation plan.",
+    stage: "Build",
+    lastUpdate: "2026-10-08",
+    currentStatus: "Moto G Stylus 5G (2023) selected as onboard computer and standalone GNSS receiver. Kotlin source scaffold for offline GNSS CSV logging committed to SolutionsHQ/prototypes/tridrone-logger. APK compilation, installation, real phone logging, HydroLite Plus Bluetooth connection and survey accuracy remain unverified. No autopilot in current scope.",
+    nextStep: "Build and install Android prototype on Moto G Stylus 5G (2023); verify accurate UTC timestamped GNSS CSV capture with phone locked, then test HydroLite Plus Bluetooth Classic serial protocol when the device is available.",
     ssotUrl: "https://github.com/fieldlogic-lab/SolutionsHQ/blob/main/docs/scopes/HYDROGRAPHIC_USV_SCOPE.md",
     supportingLinks: [
       { label: "GitHub project entry", url: "https://github.com/fieldlogic-lab/SolutionsHQ/issues/3" },
+      { label: "Android logger source", url: "https://github.com/fieldlogic-lab/SolutionsHQ/tree/main/prototypes/tridrone-logger" },
       { label: "Project scope", url: "https://github.com/fieldlogic-lab/SolutionsHQ/blob/main/docs/scopes/HYDROGRAPHIC_USV_SCOPE.md" }
+    ],
+    workstreams: [
+      { label: "Android logger", title: "Compile and validate phone GPS logging", nextStep: "Build the Kotlin scaffold, deploy to Moto G Stylus 5G 2023, verify foreground GNSS records and data persistence.", status: "In Progress" },
+      { label: "HydroLite", title: "Decode live sonar over Bluetooth", nextStep: "Verify Bluetooth Classic RFCOMM pairing and save raw depth observations when HydroLite hardware is available.", status: "Blocked" },
+      { label: "Survey data", title: "Synchronize and export soundings", nextStep: "Implement depth/GNSS time matching and raw plus merged CSV; distinguish uncorrected depth from seabed elevation.", status: "Ready" }
     ]
   },
   {
