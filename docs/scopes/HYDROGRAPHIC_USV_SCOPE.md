@@ -22,7 +22,8 @@ Initial Kotlin app records Android GPS_PROVIDER locations in a location-type for
 - [x] Select phone-only architecture and target hardware.
 - [x] Commit initial Kotlin location-service + local CSV source scaffold.
 - [x] Commit Gradle configuration and GitHub Actions APK build workflow (compilation not verified).
-- [ ] Confirm successful GitHub Actions build and retrieve debug APK.
+- [x] Confirm successful GitHub Actions build (#8, APK artifact produced; download/install pending).
+- [ ] Download debug APK artifact and install on Moto G.
 - [ ] Install on Moto G Stylus 5G (2023), test permission flow and background locked-screen recording.
 - [ ] Implement in-app session list and CSV sharing/export.
 - [ ] Probe HydroLite Bluetooth serial service and validate depth message parsing.
