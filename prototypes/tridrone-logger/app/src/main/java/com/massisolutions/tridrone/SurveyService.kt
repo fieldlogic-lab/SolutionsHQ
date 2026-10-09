@@ -21,6 +21,11 @@ class SurveyService : Service(), LocationListener {
     private var writer: BufferedWriter? = null
     private val csvHeader = "utc_epoch_ms,elapsed_realtime_ns,latitude_deg,longitude_deg,horizontal_accuracy_m,altitude_m,vertical_accuracy_m,speed_mps,bearing_deg,provider\n"
 
+    private val prefs by lazy { getSharedPreferences("logger_status", MODE_PRIVATE) }
+    private var pointCount = 0
+    private fun state(value: String, error: String = "") {
+        prefs.edit().putString("state", value).putString("error", error).apply()
+    }
     override fun onBind(intent: Intent?): IBinder? = null
 
     override fun onCreate() {
@@ -34,6 +39,9 @@ class SurveyService : Service(), LocationListener {
             .setOngoing(true)
             .build()
         startForeground(1001, notice)
+        pointCount = 0
+        prefs.edit().putInt("points", 0).remove("lat").remove("lon").apply()
+        state("waiting")
         val folder = File(filesDir, "surveys").apply { mkdirs() }
         val stamp = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss'Z'")
             .withZone(ZoneOffset.UTC).format(Instant.now())
@@ -44,8 +52,8 @@ class SurveyService : Service(), LocationListener {
         if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             if (locations.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                 locations.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000L, 0f, this, Looper.getMainLooper())
-            } else stopSelf()
-        } else stopSelf()
+            } else { state("error", "GPS disabled"); stopSelf() }
+        } else { state("error", "Location permission missing"); stopSelf() }
     }
 
     override fun onLocationChanged(location: Location) {
@@ -65,7 +73,13 @@ class SurveyService : Service(), LocationListener {
         try {
             writer?.write(row)
             writer?.flush()
-        } catch (_: Exception) {
+            pointCount++
+            prefs.edit().putInt("points", pointCount).putString("lat", location.latitude.toString())
+                .putString("lon", location.longitude.toString())
+                .putFloat("accuracy", if (location.hasAccuracy()) location.accuracy else -1f)
+                .putString("state", "recording").apply()
+        } catch (e: Exception) {
+            state("error", e.message ?: "Write failed")
             stopSelf()
         }
     }
@@ -74,6 +88,7 @@ class SurveyService : Service(), LocationListener {
         if (::locations.isInitialized) locations.removeUpdates(this)
         try { writer?.close() } catch (_: Exception) {}
         writer = null
+        if (prefs.getString("state", "") != "error") state("idle")
         super.onDestroy()
     }
 }
