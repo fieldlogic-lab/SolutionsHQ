@@ -8,11 +8,17 @@ import android.os.*
 import android.widget.*
 import java.io.File
 import java.util.Locale
+import java.text.DateFormat
+import java.util.Date
+import android.graphics.Typeface
 
 class MainActivity : Activity() {
     private lateinit var status: TextView
     private lateinit var details: TextView
     private lateinit var sessions: TextView
+    private lateinit var precision: TextView
+    private lateinit var timing: TextView
+    private lateinit var lastFix: TextView
     private lateinit var crsSpinner: Spinner
     private val crsLabels = arrayOf("NY Long Island NAD83(2011) — EPSG:6539", "WGS84 geographic — EPSG:4326")
     private val crsCodes = arrayOf("EPSG:6539", "EPSG:4326")
@@ -36,8 +42,8 @@ class MainActivity : Activity() {
             textSize = size
             setPadding(0, 10, 0, 10)
         }
-        layout.addView(label("TriDrone | Survey Logger", 24f))
-        layout.addView(label("GNSS logger v0.2 • Offline", 14f))
+        layout.addView(label("TRIDRONE  |  SURVEY DASHBOARD", 23f).apply { setTypeface(null, Typeface.BOLD) })
+        layout.addView(label("GNSS acquisition  •  Offline  •  Field mode", 14f))
         status = label("Checking logger status...", 19f)
         details = label("Waiting for GPS observations", 17f)
         sessions = label("No sessions yet", 15f)
@@ -55,14 +61,23 @@ class MainActivity : Activity() {
         }
         layout.addView(crsSpinner)
         layout.addView(label("VERTICAL DATUM: NAVD88 (EPSG:6360) — elevations pending control", 13f))
+        layout.addView(label("LIVE ACQUISITION", 14f))
+        status.setTypeface(null, Typeface.BOLD)
         layout.addView(status)
+        timing = label("Survey not started", 17f)
+        layout.addView(timing)
+        precision = label("Horizontal accuracy: awaiting fix", 19f).apply { setTypeface(null, Typeface.BOLD) }
+        layout.addView(precision)
+        lastFix = label("Last fix: none", 14f)
+        layout.addView(lastFix)
+        layout.addView(label("LIVE POSITION", 14f))
         layout.addView(details)
         layout.addView(Button(this).apply {
-            text = "START GPS SURVEY"
+            text = "START RECORDING"
             setOnClickListener { startSurvey() }
         })
         layout.addView(Button(this).apply {
-            text = "STOP SURVEY"
+            text = "STOP RECORDING"
             setOnClickListener {
                 stopService(Intent(this@MainActivity, SurveyService::class.java))
                 status.text = "Stop requested"
@@ -93,6 +108,16 @@ class MainActivity : Activity() {
         val p = getSharedPreferences("logger_status", MODE_PRIVATE)
         val state = p.getString("state", "idle") ?: "idle"
         val count = p.getInt("points", 0)
+        val started = p.getLong("started_at_ms", 0L)
+        val active = state == "recording" || state == "waiting"
+        val ended = if (active) System.currentTimeMillis() else p.getLong("stopped_at_ms", System.currentTimeMillis())
+        val seconds = if (started > 0L) ((ended - started).coerceAtLeast(0L) / 1000L) else 0L
+        timing.text = if (started > 0L) "Started " + DateFormat.getTimeInstance(DateFormat.SHORT).format(Date(started)) +
+            "  |  Elapsed " + String.format(Locale.US, "%02d:%02d:%02d", seconds / 3600, seconds / 60 % 60, seconds % 60)
+            else "Survey not started"
+        val fix = p.getLong("last_fix_ms", 0L)
+        val age = if (fix > 0L) (System.currentTimeMillis() - fix).coerceAtLeast(0L) / 1000L else -1L
+        lastFix.text = if (age < 0) "Last fix: none" else "Last fix: " + age + " seconds ago" + if (age > 10L) " (STALE)" else ""
         status.text = when(state) {
             "recording" -> "RECORDING • $count GPS points"
             "waiting" -> "WAITING FOR GPS FIX • $count points"
@@ -102,6 +127,9 @@ class MainActivity : Activity() {
         val lat = p.getString("lat", null)
         val lon = p.getString("lon", null)
         val accuracy = p.getFloat("accuracy", -1f)
+        precision.text = if (accuracy < 0f) "Horizontal accuracy: unavailable" else
+            "Horizontal accuracy: " + String.format(Locale.US, "%.1f m  |  %.1f ft", accuracy, accuracy * 3.280839895) +
+            "  (phone estimate)"
         val selectedCrs = getSharedPreferences("survey_settings", MODE_PRIVATE).getString("crs", "EPSG:6539")
         details.text = if (lat != null && lon != null) {
             "Latitude: $lat\nLongitude: $lon\nHorizontal accuracy: " +
