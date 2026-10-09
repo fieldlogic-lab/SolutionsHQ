@@ -133,14 +133,15 @@ export const projects: Project[] = [
     description: "Independent Android GNSS and depth logger for Seafloor Systems TriDrone; autopilot deferred.",
     status: "Active",
     stage: "Build",
-    lastUpdate: "2026-10-08",
-    currentStatus: "Moto G Stylus 5G (2023) offline GNSS logger source and APK CI workflow committed. Target output fixed as NAD83(2011) / New York Long Island EPSG:6539 (US survey feet; confirmed) and NAVD88 EPSG:6360 elevations (US survey feet); implementation and survey vertical control remain pending. APK build, phone validation and HydroLite Bluetooth connection are unverified.",
-    nextStep: "Verify APK build and on-phone GPS logging, implement tested EPSG:6539 projection and quality metadata, and keep NAVD88 bottom elevations unavailable until a valid vertical control workflow is established.",
-    ssotUrl: "https://github.com/fieldlogic-lab/SolutionsHQ/blob/main/docs/scopes/HYDROGRAPHIC_USV_SCOPE.md",
+    lastUpdate: "2026-10-09",
+    currentStatus: "TriDrone source, Android APK workflow, datum specification and project checklist moved to dedicated private repository fieldlogic-lab/TriDroneUpgrades. Earlier SolutionsHQ Actions run #8 reportedly produced an APK artifact; new repository build and Motorola installation remain unverified. NAD83(2011) EPSG:6539 and NAVD88 EPSG:6360 are specified but not implemented.",
+    nextStep: "Build the APK in TriDroneUpgrades and install on Motorola; test GPS and export, then HydroLite Bluetooth. Validate State Plane projection and NAVD88 corrections before surveyed elevations.",
+    ssotUrl: "https://github.com/fieldlogic-lab/TriDroneUpgrades/blob/main/docs/HYDROGRAPHIC_USV_SCOPE.md",
     supportingLinks: [
       { label: "GitHub project entry", url: "https://github.com/fieldlogic-lab/SolutionsHQ/issues/3" },
-      { label: "Android logger source", url: "https://github.com/fieldlogic-lab/SolutionsHQ/tree/main/prototypes/tridrone-logger" },
-      { label: "Project scope", url: "https://github.com/fieldlogic-lab/SolutionsHQ/blob/main/docs/scopes/HYDROGRAPHIC_USV_SCOPE.md" }
+      { label: "TriDrone repository", url: "https://github.com/fieldlogic-lab/TriDroneUpgrades" },
+      { label: "Android APK builds", url: "https://github.com/fieldlogic-lab/TriDroneUpgrades/actions/workflows/android-apk.yml" },
+      { label: "Project scope", url: "https://github.com/fieldlogic-lab/TriDroneUpgrades/blob/main/docs/HYDROGRAPHIC_USV_SCOPE.md" }
     ],
     workstreams: [
       { label: "Android logger", title: "Compile and validate phone GPS logging", nextStep: "Build the Kotlin scaffold, deploy to Moto G Stylus 5G 2023, verify foreground GNSS records and data persistence.", status: "In Progress" },
