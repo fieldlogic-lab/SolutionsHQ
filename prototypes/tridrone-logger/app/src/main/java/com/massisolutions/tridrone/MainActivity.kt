@@ -88,6 +88,7 @@ class MainActivity : Activity() {
             text = "EXPORT LATEST CSV"
             setOnClickListener { exportLatest() }
         })
+        layout.addView(Button(this).apply { text = "VIEW SAVED SURVEYS AND POINTS"; setOnClickListener { showSavedSurveys() } })
         layout.addView(label("Recent session", 18f))
         layout.addView(sessions)
         layout.addView(label("EPSG:6539 projection is not implemented. Selection is a display preference only; CSV currently stores raw latitude/longitude. Phone GNSS is not survey-grade.", 13f))
@@ -139,6 +140,47 @@ class MainActivity : Activity() {
         val file = latest()
         sessions.text = if (file == null) "No CSV session found" else
             "${file.name}\n${file.length()} bytes"
+    }
+    private fun showSavedSurveys() {
+        val files = File(filesDir, "surveys").listFiles { f -> f.isFile && f.extension == "csv" }
+            ?.sortedByDescending { it.lastModified() } ?: emptyList()
+        if (files.isEmpty()) {
+            Toast.makeText(this, "No saved surveys", Toast.LENGTH_LONG).show()
+            return
+        }
+        val labels = files.map { file ->
+            val count = try { file.useLines { it.count() - 1 }.coerceAtLeast(0) } catch (_: Exception) { 0 }
+            file.name + "  |  " + count + " points"
+        }.toTypedArray()
+        android.app.AlertDialog.Builder(this).setTitle("Saved surveys")
+            .setItems(labels) { _, index -> showSavedPoints(files[index]) }
+            .setNegativeButton("Close", null).show()
+    }
+    private fun showSavedPoints(file: File) {
+        try {
+            val lines = file.useLines { it.take(301).toList() }
+            val body = lines.drop(1).mapIndexed { i, row ->
+                val values = row.split(",")
+                val time = values.getOrNull(0)?.toLongOrNull()?.let {
+                    java.text.DateFormat.getTimeInstance().format(java.util.Date(it))
+                } ?: "unknown"
+                "#"+(i+1)+"  "+time+"\\nLat: "+(values.getOrNull(2) ?: "—")+
+                    "  Lon: "+(values.getOrNull(3) ?: "—")+
+                    "\\nAccuracy: "+(values.getOrNull(4) ?: "—")+" m"
+            }.joinToString("\\n\\n")
+            val view = ScrollView(this)
+            view.addView(TextView(this).apply {
+                textSize = 15f
+                setPadding(28, 20, 28, 20)
+                text = file.name + "\\nShowing up to 300 recorded observations.\\n\\n" + body
+                setTextIsSelectable(true)
+            })
+            android.app.AlertDialog.Builder(this).setTitle("Recorded GPS points")
+                .setView(view).setPositiveButton("Close", null)
+                .setNeutralButton("Export") { _, _ -> exportLatest() }.show()
+        } catch (e: Exception) {
+            Toast.makeText(this, "Cannot open CSV: "+e.message, Toast.LENGTH_LONG).show()
+        }
     }
     private fun startSurvey() {
         if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
