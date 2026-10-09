@@ -13,6 +13,9 @@ class MainActivity : Activity() {
     private lateinit var status: TextView
     private lateinit var details: TextView
     private lateinit var sessions: TextView
+    private lateinit var crsSpinner: Spinner
+    private val crsLabels = arrayOf("NY Long Island NAD83(2011) — EPSG:6539", "WGS84 geographic — EPSG:4326")
+    private val crsCodes = arrayOf("EPSG:6539", "EPSG:4326")
     private val handler = Handler(Looper.getMainLooper())
     private val requestCode = 31
     private val refresh = object : Runnable {
@@ -38,6 +41,20 @@ class MainActivity : Activity() {
         status = label("Checking logger status...", 19f)
         details = label("Waiting for GPS observations", 17f)
         sessions = label("No sessions yet", 15f)
+        layout.addView(label("HORIZONTAL COORDINATE SYSTEM", 15f))
+        crsSpinner = Spinner(this)
+        crsSpinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, crsLabels)
+        val settings = getSharedPreferences("survey_settings", MODE_PRIVATE)
+        crsSpinner.setSelection(if (settings.getString("crs", "EPSG:6539") == "EPSG:4326") 1 else 0)
+        crsSpinner.onItemSelectedListener = object : android.widget.AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: android.widget.AdapterView<*>?) {}
+            override fun onItemSelected(parent: android.widget.AdapterView<*>?, view: android.view.View?, position: Int, id: Long) {
+                settings.edit().putString("crs", crsCodes[position]).apply()
+                updateDisplay()
+            }
+        }
+        layout.addView(crsSpinner)
+        layout.addView(label("VERTICAL DATUM: NAVD88 (EPSG:6360) — elevations pending control", 13f))
         layout.addView(status)
         layout.addView(details)
         layout.addView(Button(this).apply {
@@ -58,7 +75,7 @@ class MainActivity : Activity() {
         })
         layout.addView(label("Recent session", 18f))
         layout.addView(sessions)
-        layout.addView(label("Horizontal output: EPSG:6539 (planned) | Vertical: EPSG:6360 (not solved). Raw phone GNSS is not survey-grade.", 13f))
+        layout.addView(label("EPSG:6539 projection is not implemented. Selection is a display preference only; CSV currently stores raw latitude/longitude. Phone GNSS is not survey-grade.", 13f))
         root.addView(layout)
         setContentView(root)
     }
@@ -85,6 +102,7 @@ class MainActivity : Activity() {
         val lat = p.getString("lat", null)
         val lon = p.getString("lon", null)
         val accuracy = p.getFloat("accuracy", -1f)
+        val selectedCrs = getSharedPreferences("survey_settings", MODE_PRIVATE).getString("crs", "EPSG:6539")
         details.text = if (lat != null && lon != null) {
             "Latitude: $lat\nLongitude: $lon\nHorizontal accuracy: " +
                 (if (accuracy >= 0) String.format(Locale.US, "%.1f m", accuracy) else "Unknown") +
