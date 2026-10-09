@@ -88,6 +88,7 @@ class MainActivity : Activity() {
             text = "EXPORT LATEST CSV"
             setOnClickListener { exportLatest() }
         })
+        layout.addView(Button(this).apply { text = "OPEN SURVEY MAP"; setOnClickListener { showSurveyMap() } })
         layout.addView(Button(this).apply { text = "VIEW SAVED SURVEYS AND POINTS"; setOnClickListener { showSavedSurveys() } })
         layout.addView(label("Recent session", 18f))
         layout.addView(sessions)
@@ -140,6 +141,54 @@ class MainActivity : Activity() {
         val file = latest()
         sessions.text = if (file == null) "No CSV session found" else
             "${file.name}\n${file.length()} bytes"
+    }
+    private fun showSurveyMap() {
+        val files = File(filesDir, "surveys").listFiles { f -> f.isFile && f.extension == "csv" }
+            ?.sortedByDescending { it.lastModified() } ?: emptyList()
+        val tracks = files.map { file ->
+            try {
+                file.useLines { lines ->
+                    lines.drop(1).mapNotNull { line ->
+                        val cells = line.split(",")
+                        val lat = cells.getOrNull(2)?.toDoubleOrNull()
+                        val lon = cells.getOrNull(3)?.toDoubleOrNull()
+                        if (lat != null && lon != null && lat in -90.0..90.0 && lon in -180.0..180.0) Pair(lat, lon) else null
+                    }.toList()
+                }
+            } catch (_: Exception) { emptyList<Pair<Double, Double>>() }
+        }
+        val view = SurveyMapView(this)
+        val box = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL }
+        val info = TextView(this).apply {
+            text = "All saved tracks: " + files.size + "  |  Recorded points: " + tracks.sumOf { it.size } +
+                "\\nBlue: latest track  •  Gray: earlier tracks  •  Green: live position"
+            textSize = 14f
+            setPadding(20, 16, 20, 12)
+        }
+        box.addView(info)
+        box.addView(view, LinearLayout.LayoutParams(-1, (resources.displayMetrics.heightPixels * 0.55f).toInt()))
+        view.tracks = tracks
+        fun refreshMap() {
+            val prefs = getSharedPreferences("logger_status", MODE_PRIVATE)
+            val lat = prefs.getString("lat", null)?.toDoubleOrNull()
+            val lon = prefs.getString("lon", null)?.toDoubleOrNull()
+            val age = System.currentTimeMillis() - prefs.getLong("last_fix_ms", 0L)
+            view.current = if (lat != null && lon != null && age in 0..10000) Pair(lat, lon) else null
+        }
+        refreshMap()
+        val dialog = android.app.AlertDialog.Builder(this).setTitle("Survey map")
+            .setView(box).setPositiveButton("Close", null).create()
+        val ticker = object : Runnable {
+            override fun run() {
+                if (dialog.isShowing) {
+                    refreshMap()
+                    handler.postDelayed(this, 1000)
+                }
+            }
+        }
+        dialog.setOnShowListener { handler.post(ticker) }
+        dialog.setOnDismissListener { handler.removeCallbacks(ticker) }
+        dialog.show()
     }
     private fun showSavedSurveys() {
         val files = File(filesDir, "surveys").listFiles { f -> f.isFile && f.extension == "csv" }
