@@ -40,7 +40,7 @@ class SurveyService : Service(), LocationListener {
             .build()
         startForeground(1001, notice)
         pointCount = 0
-        prefs.edit().putInt("points", 0).remove("lat").remove("lon").apply()
+        prefs.edit().putInt("points", 0).putLong("started_at_ms", System.currentTimeMillis()).remove("last_fix_ms").remove("lat").remove("lon").apply()
         state("waiting")
         val folder = File(filesDir, "surveys").apply { mkdirs() }
         val stamp = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss'Z'")
@@ -77,6 +77,7 @@ class SurveyService : Service(), LocationListener {
             prefs.edit().putInt("points", pointCount).putString("lat", location.latitude.toString())
                 .putString("lon", location.longitude.toString())
                 .putFloat("accuracy", if (location.hasAccuracy()) location.accuracy else -1f)
+                .putLong("last_fix_ms", System.currentTimeMillis())
                 .putString("state", "recording").apply()
         } catch (e: Exception) {
             state("error", e.message ?: "Write failed")
@@ -89,6 +90,7 @@ class SurveyService : Service(), LocationListener {
         try { writer?.close() } catch (_: Exception) {}
         writer = null
         if (prefs.getString("state", "") != "error") state("idle")
+        prefs.edit().putLong("stopped_at_ms", System.currentTimeMillis()).apply()
         super.onDestroy()
     }
 }
