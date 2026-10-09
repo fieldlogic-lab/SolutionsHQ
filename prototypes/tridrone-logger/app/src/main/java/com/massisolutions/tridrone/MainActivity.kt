@@ -158,7 +158,7 @@ class MainActivity : Activity() {
     }
     private fun showSavedPoints(file: File) {
         try {
-            val lines = file.useLines { it.take(301).toList() }
+            val lines = file.readLines()
             val body = lines.drop(1).mapIndexed { i, row ->
                 val values = row.split(",")
                 val time = values.getOrNull(0)?.toLongOrNull()?.let {
@@ -172,12 +172,12 @@ class MainActivity : Activity() {
             view.addView(TextView(this).apply {
                 textSize = 15f
                 setPadding(28, 20, 28, 20)
-                text = file.name + "\\nShowing up to 300 recorded observations.\\n\\n" + body
+                text = file.name + "\\nRecorded observations: " + lines.drop(1).size + "\\n\\n" + body
                 setTextIsSelectable(true)
             })
             android.app.AlertDialog.Builder(this).setTitle("Recorded GPS points")
                 .setView(view).setPositiveButton("Close", null)
-                .setNeutralButton("Export") { _, _ -> exportLatest() }.show()
+                .setNeutralButton("Export this survey") { _, _ -> exportFile(file) }.show()
         } catch (e: Exception) {
             Toast.makeText(this, "Cannot open CSV: "+e.message, Toast.LENGTH_LONG).show()
         }
@@ -204,8 +204,11 @@ class MainActivity : Activity() {
             Toast.makeText(this, "No survey CSV to export", Toast.LENGTH_LONG).show()
             return
         }
+        exportFile(file)
+    }
+    private fun exportFile(file: File) {
         try {
-            val shareCopy = File(cacheDir, "tridrone_export.csv")
+            val shareCopy = File(cacheDir, file.name)
             file.inputStream().use { input -> shareCopy.outputStream().use { output -> input.copyTo(output) } }
             val uri = androidx.core.content.FileProvider.getUriForFile(this, "$packageName.fileprovider", shareCopy)
             val intent = Intent(Intent.ACTION_SEND).apply {
