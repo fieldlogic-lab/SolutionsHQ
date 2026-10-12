@@ -1,5 +1,16 @@
 # Decision Log
 
+## 2026-10-12 — AI Development Team pilot
+**Decision:** Add a modular, authenticated development-request interface to software project pages. GitHub remains the durable source of request, branch, PR, build, and QA evidence; GitHub Actions executes Codex PM, Developer, and independent QA processes.
+
+**First target:** Explicitly route `hydrographic-usv` to `fieldlogic-lab/TriDroneUpgrades`. Other repositories require explicit onboarding and project-specific validation before dispatch is enabled.
+
+**Approval:** The owner approved implementation scope. Each generated PM plan requires approval of its exact version before development. Merge, deployment, release dispatch, and publishing require separate owner approval. Never interpret QA success as publishing permission.
+
+**Reason:** Replace manual agent handoffs with real trackable development while preserving the current interface and avoiding a separate worker service or database. Owner authentication is now necessary for the new write surface; the earlier deferral of authentication does not apply to this pilot.
+
+**Status:** Local implementation and independent verification precede activation. Secrets configuration, approved default-branch installation, and separate deployment approval are required before the first live demonstration. See `docs/AI_DEVELOPMENT_TEAM.md` and `docs/AI_TEAM_ACCEPTANCE.md`.
+
 ## 2026-09-23 — Establish Solutions HQ
 **Decision:** Create a dedicated Solutions HQ application as the portfolio, re-entry, and innovation command layer for Massi Solutions.
 

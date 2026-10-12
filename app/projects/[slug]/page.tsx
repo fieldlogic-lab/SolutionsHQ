@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import ResumeInChatGPT from "@/components/ResumeInChatGPT";
 import WorkstreamManager from "@/components/WorkstreamManager";
 import { projects } from "@/data/projects";
+import AIDevelopmentTeam from "@/components/AIDevelopmentTeam";
+import { teamProjects } from "@/lib/ai-team/config";
 
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -73,6 +75,8 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       }}
       initialWorkstreams={workstreams}
     />
+
+    {teamProjects[slug] && <AIDevelopmentTeam project={slug} repository={teamProjects[slug].repo} enabled={teamProjects[slug].enabled} />}
 
     <div className="detail-grid">
       <section className="panel">
