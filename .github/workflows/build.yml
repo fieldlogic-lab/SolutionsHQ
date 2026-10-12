@@ -16,10 +16,16 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
+
+      - name: Automated tests
+        run: npm test
+
+      - name: Type check
+        run: npx next typegen && npx tsc --noEmit
 
       - name: Production build
         run: npm run build

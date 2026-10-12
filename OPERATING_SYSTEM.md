@@ -45,6 +45,12 @@ Solutions HQ is the human interface for the Massi Solutions portfolio. It is not
 ## Deferred
 Authentication, database-backed editing, automatic GitHub synchronization, Drive integration, automated checkpoints, AI resume packets, notifications, multi-user roles, and commercialization analytics.
 
+### AI Development Team pilot exception
+Single-owner authentication and explicit GitHub workflow dispatch are included for the AI Development Team write surface. Existing portfolio pages and local workstreams remain available. The target repository owns request records and development evidence. Repositories are onboarded explicitly with their own checks; no agent receives merge, deployment, or release authorization from scope approval. See `docs/AI_DEVELOPMENT_TEAM.md` for configuration and activation boundaries.
+
+### Connected project workspace and desktop
+Workshop, Next Steps, Prompt Builder, and Development Team share private, durable project context. Accepted HQ decisions retain provenance and cannot silently overwrite repository truth. Only an exact approved assignment can enter engineering; a workshop conversation alone cannot dispatch work. The same application serves mobile and an installable Windows PWA, with larger-screen regions and a separate ChatGPT companion. Private context lives on the server; device storage retains only existing workstream edits and layout preferences. See `docs/PROJECT_WORKSPACE.md` and `docs/DESKTOP_PWA.md`.
+
 
 ## Invention / Patent-Readiness Discipline
 When a project may contain protectable technical subject matter, Solutions HQ must classify it in the patent-readiness register and apply the invention-record standard in `docs/INVENTION_RECORD_STANDARD.md`.

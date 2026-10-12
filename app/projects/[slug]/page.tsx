@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import ResumeInChatGPT from "@/components/ResumeInChatGPT";
 import WorkstreamManager from "@/components/WorkstreamManager";
 import { projects } from "@/data/projects";
+import ProjectWorkspace from "@/components/ProjectWorkspace";
+import { teamProjects } from "@/lib/ai-team/config";
 
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -58,6 +60,8 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         chatgptProjectUrl={project.chatgptProjectUrl}
       />
     </section>
+
+    <ProjectWorkspace key={slug} project={slug} name={project.name} repository={teamProjects[slug]?.repo} enabled={teamProjects[slug]?.enabled ?? false} />
 
     <WorkstreamManager
       project={{
