@@ -79,6 +79,12 @@ export default function ResumeInChatGPT({
   const resumeBrief = promptOverride || generatedBrief;
 
   async function resume() {
+    const baseDestination = chatgptProjectUrl || "https://chatgpt.com/";
+    const webDestination = chatGPTUrlWithPrompt(baseDestination, resumeBrief);
+    const separateCompanion = !isIOSDevice() && window.matchMedia("(pointer: fine)").matches;
+    // Open during the click's user activation, before awaiting clipboard permissions.
+    // Desktop HQ (including its installed window) stays open beside ChatGPT.
+    if (separateCompanion) window.open(webDestination, "_blank", "noopener,noreferrer");
     try {
       await navigator.clipboard.writeText(resumeBrief);
       setCopied(true);
@@ -87,8 +93,7 @@ export default function ResumeInChatGPT({
       setCopied(false);
     }
 
-    const baseDestination = chatgptProjectUrl || "https://chatgpt.com/";
-    const webDestination = chatGPTUrlWithPrompt(baseDestination, resumeBrief);
+    if (separateCompanion) return;
 
     if (!isIOSDevice()) {
       window.location.href = webDestination;

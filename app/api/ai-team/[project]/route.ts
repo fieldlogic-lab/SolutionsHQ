@@ -2,6 +2,9 @@ import { cookies } from "next/headers";
 import { sessionCookie, validSession, sameOrigin, readJson } from "@/lib/ai-team/auth";
 import { teamProjects, parseRequest } from "@/lib/ai-team/config";
 import { github, inspect, listIssues, submit, validateApproval } from "@/lib/ai-team/github";
+import { database } from "@/lib/workspace/database";
+import { WorkspaceStore, WorkspaceError } from "@/lib/workspace/store";
+import { authorizePlanApproval } from "@/lib/workspace/service";
 export const runtime = "nodejs";
 type Context = { params: Promise<{ project: string }> };
 async function access(context: Context) {
@@ -25,11 +28,12 @@ export async function POST(request: Request, context: Context) {
     const { project, repo } = await access(context);
     const body = await readJson(request);
     if (body.action === "submit") {
-      if (typeof body.requestId !== "string" || !/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(body.requestId) || typeof body.text !== "string" || body.text.trim().length < 10 || body.text.length > 10000) throw new Error("Enter a request between 10 and 10,000 characters with a valid request ID.");
-      const result = await submit(repo, project, body.requestId, body.text.trim());
-      return Response.json({ number: result.issue.number, url: result.issue.html_url, duplicate: result.duplicate, message: result.duplicate ? "Request already exists. Check its workflow status; it has not been dispatched again." : "Request saved and Codex planning workflow dispatched. Waiting for runner confirmation." });
+      throw new Error("Direct plain-text development submission is disabled. Review and approve an exact workspace assignment, then submit it through the Development view.");
     }
     if (body.action === "approve") {
+      if (!Number.isSafeInteger(body.issue)) throw new Error("A valid request issue is required.");
+      try { await authorizePlanApproval(new WorkspaceStore(database()), project, body.issue as number); }
+      catch (error) { if (error instanceof WorkspaceError) throw error; throw new Error("Approved assignment verification is unavailable. Check workspace database configuration."); }
       const issues = await listIssues(repo, project);
       const issue = issues.find(i => i.number === body.issue);
       if (!issue) throw new Error("Request was not found in this project.");

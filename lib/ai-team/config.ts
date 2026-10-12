@@ -9,6 +9,7 @@ export const teamProjects: Record<string, { repo: string; enabled: boolean }> = 
   "solutions-hq": { repo: "fieldlogic-lab/SolutionsHQ", enabled: false },
 };
 export const requestMarker = (requestId: string, project: string) => `<!-- solutionshq-request:${JSON.stringify({ version: 1, requestId, project })} -->`;
+export const publicRequestBody = (requestId: string, project: string, text: string) => `${requestMarker(requestId, project)}\n\n## Development request\n${text}\n\nSubmitted through SolutionsHQ. Merge, deploy, and publish require owner approval.`;
 export function parseRequest(body: string): { version: number; requestId: string; project: string } | null {
   try { const value = JSON.parse(body.match(/<!-- solutionshq-request:(.*?) -->/)?.[1] ?? "null");
     return value?.version === 1 && typeof value.requestId === "string" && /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value.requestId) && typeof value.project === "string" && Object.hasOwn(teamProjects, value.project) ? value : null;

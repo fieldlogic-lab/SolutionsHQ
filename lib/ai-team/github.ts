@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { parseEvent, parseRequest, requestMarker } from "./config";
+import { parseEvent, parseRequest, publicRequestBody } from "./config";
 type Issue = { number: number; title: string; body: string; html_url: string; state: string };
 type Comment = { id: number; body: string; user: { login: string }; html_url: string };
 export const hashPlan = (body: string) => createHash("sha256").update(body).digest("hex");
@@ -60,7 +60,7 @@ export async function inspect(repo: string, issue: Issue) {
 export async function submit(repo: string, project: string, requestId: string, text: string) {
   const existing = (await listIssues(repo, project)).find(i => parseRequest(i.body)?.requestId === requestId);
   if (existing) return { issue: existing, duplicate: true };
-  const issue = await github<Issue>(repo, "issues", "POST", { title: `[AI Development] ${text.split("\n")[0].slice(0, 100)}`, body: `${requestMarker(requestId, project)}\n\n## Development request\n${text}\n\nSubmitted through SolutionsHQ. Merge, deploy, and publish require owner approval.` });
+  const issue = await github<Issue>(repo, "issues", "POST", { title: `[AI Development] ${text.split("\n")[0].slice(0, 100)}`, body: publicRequestBody(requestId, project, text) });
   try {
     await github(repo, "actions/workflows/ai-development.yml/dispatches", "POST", { ref: "main", inputs: { phase: "plan", request_issue: String(issue.number), request_id: requestId } });
     return { issue, duplicate: false };

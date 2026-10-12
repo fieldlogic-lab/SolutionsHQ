@@ -28,11 +28,11 @@ export function sameOrigin(request: Request) {
   if (!/^(localhost|127\.0\.0\.1)(:\d+)?$/.test(host)) return false;
   return request.headers.get("origin") === `${url.protocol}//${host}`;
 }
-export async function readJson(request: Request) {
+export async function readJson(request: Request, maxBytes = 16000) {
   const reader = request.body?.getReader();
   if (!reader) throw new Error("Missing request body.");
   const chunks: Uint8Array[] = []; let size = 0;
-  while (true) { const chunk = await reader.read(); if (chunk.done) break; size += chunk.value.byteLength; if (size > 16000) { await reader.cancel(); throw new Error("Request is too large."); } chunks.push(chunk.value); }
+  while (true) { const chunk = await reader.read(); if (chunk.done) break; size += chunk.value.byteLength; if (size > maxBytes) { await reader.cancel(); throw new Error("Request is too large."); } chunks.push(chunk.value); }
   const raw = Buffer.concat(chunks).toString("utf8");
   return JSON.parse(raw) as Record<string, unknown>;
 }

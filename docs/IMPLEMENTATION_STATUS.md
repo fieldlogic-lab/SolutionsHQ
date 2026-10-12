@@ -1,5 +1,13 @@
 # Solutions HQ — Implementation Status
 
+## 2026-10-12 — Connected workspace, development pilot, and desktop PWA
+
+Implemented on the review branch: private Postgres-backed context; Workshop, Next Steps, Prompt Builder, and Development Team views for every project; immutable assignment approvals; server-enforced engineering boundaries; GitHub request/PR/build/full-SHA QA tracking; fluid three-region desktop layout with accessible resizing/collapse; standalone PWA metadata/icons and browser installation affordance; preserved mobile navigation and external ChatGPT companion behavior.
+
+Local tests cover actual Postgres-compatible persistence and concurrent edits, interrupted responses, private deletion/replay protection, approved assignment handoffs, stale verification, and PWA assets. Independent QA verifies reviewed commits and browser layouts separately. Check the current QA report for exact evidence rather than treating this implementation note as live acceptance.
+
+Activation remains pending private database/API/GitHub configuration, owner-approved target workflow installation and hosting deployment, the first live TriDrone request, and actual Windows shortcut/taskbar checks. No service worker caches private data or old application pages. See `PROJECT_WORKSPACE.md`, `AI_DEVELOPMENT_TEAM.md`, `DESKTOP_PWA.md`, and `AI_TEAM_ACCEPTANCE.md`.
+
 Last updated: 2026-09-23
 
 ## Functional

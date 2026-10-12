@@ -4,11 +4,13 @@ Scope approved by the owner on 2026-10-12: implement the SolutionsHQ request int
 
 ## First live request
 
-Use the existing TriDrone project page (`/projects/hydrographic-usv`). Submit:
+Use the existing TriDrone project page (`/projects/hydrographic-usv`). Discuss this request in Workshop, carry it into Prompt Builder, review the exact assignment text and repository, approve that version, then explicitly submit it through Development Team:
 
 > Add docs/AI_TEAM_PILOT.md describing the TriDrone PM → Developer → independent QA workflow, the required Android verification commands, and the hardware checks that CI cannot prove. Keep this change documentation-only and preserve existing product behavior. Do not merge, deploy, publish, or dispatch the APK release workflow.
 
 Review the PM plan before approving it. Confirm that the only approved output path is `docs/AI_TEAM_PILOT.md`. Approval is for this plan version only.
+
+Verify that the Workshop discussion, generated assignment, and later development evidence remain connected after reload and in a second authenticated session. Workshop messages alone must not dispatch either workflow phase.
 
 ## Evidence required
 

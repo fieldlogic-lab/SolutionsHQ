@@ -1,5 +1,14 @@
 # Decision Log
 
+## 2026-10-12 — Connected project workspace and desktop PWA
+**Decision:** Preserve the portfolio/re-entry interface and add connected Workshop, Next Steps, Prompt Builder, and Development Team views for every project. Use one private Postgres context store, explicit accepted facts, immutable assignment versions and approvals, and GitHub-linked development evidence. Workshop and recommendation services have no engineering execution tools.
+
+**Owner approval:** Expanded implementation scope and the private database architecture were approved. Merging, deployment, publishing, and acceptance of provider terms/charges remain separately controlled.
+
+**Desktop:** Use the same responsive Next.js application as an installable online-only PWA with fluid, resizable/collapsible left navigation/history, center workspace, and right development activity regions. Keep ChatGPT as a separate companion. Avoid service-worker/offline caches that could retain stale pages or private data.
+
+**Verification:** Developer tests and separate independent QA cover actual Postgres-compatible persistence, authorization, approval/replay boundaries, responsive layout, and manifest assets. Cloud service activation and native Windows installation require separate live verification; local checks are not evidence of those operations.
+
 ## 2026-10-12 — AI Development Team pilot
 **Decision:** Add a modular, authenticated development-request interface to software project pages. GitHub remains the durable source of request, branch, PR, build, and QA evidence; GitHub Actions executes Codex PM, Developer, and independent QA processes.
 

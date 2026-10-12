@@ -1,0 +1,9 @@
+export type SourceRef = string;
+export type WorkspaceMessage = { id: string; role: "user" | "assistant"; content: string; status: "pending" | "complete" | "failed"; createdAt: string; sourceRefs: string[]; operationId: string; contextRevision: number; error?: string };
+export type WorkspaceFact = { id: string; kind: "decision" | "requirement"; content: string; sourceRefs: string[]; createdAt: string };
+export type WorkspaceAssignment = { id: string; version: number; hash: string; content: string; status: "draft" | "approved" | "revoked" | "submitted"; sourceRefs: string[]; contextRevision: number; contextSnapshot: unknown; createdAt: string; approvedAt?: string; submittedRequestId?: string };
+export type WorkspaceRecommendation = { id: string; content: string; status: "pending" | "complete" | "failed"; sourceRefs: string[]; createdAt: string; operationId: string; contextRevision: number; error?: string };
+export type DevelopmentEvidence = { requestId: string; issue?: number; outcome: string; observedAt: string; evidence?: unknown; error?: string };
+export type WorkspaceState = { messages: WorkspaceMessage[]; facts: WorkspaceFact[]; assignments: WorkspaceAssignment[]; recommendations: WorkspaceRecommendation[]; development: DevelopmentEvidence[]; events: { id: string; type: string; createdAt: string; sourceRefs: string[] }[] };
+export type WorkspaceView = WorkspaceState & { project: string; revision: number; capabilities: { database: boolean; ai: boolean; development: boolean }; developmentFreshness?: string };
+export type WorkspaceAction = { action: string; requestId: string; revision: number; content?: string; sourceRefs?: string[]; sourceLabel?: string; kind?: "decision" | "requirement"; assignmentId?: string; version?: number; hash?: string; confirm?: string };

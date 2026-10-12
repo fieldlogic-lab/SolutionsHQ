@@ -87,3 +87,9 @@ test('canonical origin ignores forged host and forwarded headers',()=>{
  delete process.env.HQ_APP_ORIGIN;
 });
 
+test('workspace bounded reader accepts valid Unicode payload and rejects byte overflow',async()=>{
+ const text=JSON.stringify({content:'🌊'.repeat(7000),sourceRefs:Array(50).fill('source:'+('é'.repeat(100)))});
+ const read=await readJson(new Request('https://hq.test/api',{method:'POST',body:text}),128000);
+ assert.equal(read.content.length,14000);
+ await assert.rejects(readJson(new Request('https://hq.test/api',{method:'POST',body:'🌊'.repeat(33000)}),128000),/too large/);
+});

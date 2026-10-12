@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "db:migrate": "node scripts/migrate-workspace.mjs",
     "test": "node --test tests/*.test.mjs",
     "dev": "next dev",
     "build": "next build",
@@ -10,11 +11,14 @@
   },
   "dependencies": {
     "next": "^16.0.0",
+    "pg": "^8.23.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
+    "@electric-sql/pglite": "^0.5.9",
     "@types/node": "^22.0.0",
+    "@types/pg": "^8.23.1",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "typescript": "^5.7.0"

@@ -1,6 +1,6 @@
 # AI Development Team: setup and operation
 
-SolutionsHQ remains the portfolio interface. GitHub issues preserve development requests; GitHub Actions runs real Codex agents in the target repository. No standalone worker service or database is required for this pilot.
+SolutionsHQ remains the portfolio interface. GitHub issues preserve development requests; GitHub Actions runs real Codex agents in the target repository. No standalone worker service is required. The connected Workshop, Next Steps, Prompt Builder, and Development Team views use the private context database described in `PROJECT_WORKSPACE.md`.
 
 The first enabled route is `hydrographic-usv` → `fieldlogic-lab/TriDroneUpgrades`. Other configured software projects display an onboarding state until their runner and project-specific checks are installed. Never infer a write target from request text.
 
@@ -10,7 +10,7 @@ The first enabled route is `hydrographic-usv` → `fieldlogic-lab/TriDroneUpgrad
 2. Configure the GitHub Actions secret below and enable permitted Actions and draft PR creation in TriDrone.
 3. Configure the SolutionsHQ server environment below. For local development, use an ignored `.env.local`. For hosting, enter values through the hosting provider's secret/environment interface. Do not use `NEXT_PUBLIC_` prefixes.
 4. Review SolutionsHQ changes and separately approve deployment. Existing Vercel integration may create previews when branches or PRs are pushed and deploy production on main updates. Verify its actual settings before pushing.
-5. Sign in through the AI Development Team panel on the TriDrone project page, submit the documentation-only request in `AI_TEAM_ACCEPTANCE.md`, review the PM plan, then approve its specific version.
+5. Configure the private context database and conversational AI from `PROJECT_WORKSPACE.md`. Sign in on the TriDrone project page, use Workshop/Prompt Builder to prepare the documentation-only request in `AI_TEAM_ACCEPTANCE.md`, review and approve its exact assignment version, submit it from Development Team, then review and separately approve the PM plan.
 
 Do not paste secret values into chat, source files, request text, issues, or PR descriptions.
 
