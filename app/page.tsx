@@ -5,7 +5,7 @@ import ProjectCardExpandable from "@/components/ProjectCardExpandable";
 
 export default function Dashboard() {
   const active = projects.filter(p => p.status === "Active");
-  const inactive = projects.filter(p => p.status !== "Active");
+  const inactive = projects.filter(p => p.status === "Inactive" || p.status === "Parked");
 
   return <main>
     <section className="metric-row">
